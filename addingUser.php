@@ -4,8 +4,7 @@ include "inc/modal-dismiss.html";
 $title = "Agregando un Cliente para Delivery/Facturación";
 include "inc/header.php";
 $name = htmlspecialchars($_POST['client']);
-$kind = $_POST["kind"];
-$cuit = htmlspecialchars($_POST['cuit']);
+$dni = htmlspecialchars($_POST['dni']);
 $pass = htmlspecialchars($_POST['pass']);
 $hash = password_hash($pass, PASSWORD_DEFAULT);
 $email = htmlspecialchars($_POST['email']);
@@ -13,9 +12,9 @@ $phone = htmlspecialchars($_POST['phone']);
 $address = htmlspecialchars($_POST['address']);
 $ok = false;
 
-if ($cuit != "")
+if ($dni != "")
 {
-    $sql = "SELECT id FROM delivery WHERE phone='" . $phone . "' OR email='" . $email . "' OR cuit='" . $cuit . "';";
+    $sql = "SELECT id FROM delivery WHERE phone='" . $phone . "' OR email='" . $email . "' OR dni='" . $dni . "';";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     if ($stmt->rowCount() > 0)
@@ -33,16 +32,16 @@ else
 }
 if ($ok)
 {
-    $stmt = $conn->prepare('INSERT INTO delivery VALUES(:id, :kind, :name, :cuit, :email, :pass, :phone, :address)');
+    $stmt = $conn->prepare('INSERT INTO delivery VALUES(:id, :name, :dni, :email, :pass, :phone, :address)');
     if ($cuit != "")
     {
-        $stmt->execute(array(':id' => null, ':kind' => $kind, ':name' => $name, ':cuit' => $cuit, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));
+        $stmt->execute(array(':id' => null, ':name' => $name, ':dni' => $dni, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));
     }
     else
     {
-        $stmt->execute(array(':id' => null, ':kind' => $kind, ':name' => $name, ':cuit' => null, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));
+        $stmt->execute(array(':id' => null, ':name' => $name, ':dni' => null, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));
     }
-    echo "<script>toast ('0', 'Cliente : " . $name . " Agregado Correctamente.', 'Si el Cliente es Responsable Inscripto Podrás enviarle las Facturas.');</script>";
+    echo "<script>toast ('0', 'Cliente : " . $name . " Agregado Correctamente.', 'Se a Agregado el Cliente Para Hacer Pedidos a Domicilio.');</script>";
 }
 ?>
 <section class="container-fluid pt-3">

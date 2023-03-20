@@ -8,8 +8,14 @@ switch ($id)
     case 1:
         $name = "Bebida";
         break;
-    default:
+    case 2:
         $name = "Postre";
+        break;
+    case 3:
+        $name = "Vino";
+        break;
+    default:
+        $name = "Café";
 }
 $title = "Agregando Artículos";
 include "inc/header.php";
@@ -30,7 +36,7 @@ include "inc/header.php";
                         <br><br>
                         <label><input type="number" step=".05" name="price" placeholder="Precio" style="font-size:x-large;" required> Precio</label>
                         <br><br>
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                        <input type="hidden" name="id" value="<?php echo $name; ?>">
                         <input type="submit" value="Agrego este Artículo" style="float:right; width:220px; height:128px;" class="btn btn-primary">
                         </form>
                     </div>

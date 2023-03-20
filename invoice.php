@@ -11,16 +11,14 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 $row = $stmt->fetch(PDO::FETCH_OBJ);
 $id = $row->id;
-$client = $row->client;
+$client = $row->client_id;
 $wait = $row->wait_id;
-$table = $row->tabl;
+$table = $row->table_id;
 $product = "";
 $price = "";
 $qtty = "";
-// $partial = explode(",", $row->partial);
 $partial = "";
 $total = $row->total;
-$totaliva = $row->totaliva;
 $date = $row->date;
 $time = $row->time;
 ?>

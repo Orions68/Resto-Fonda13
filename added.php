@@ -2,10 +2,27 @@
 include "inc/fw.php";
 $name = $_POST['product'];
 $price = $_POST['price'];
-$id = $_POST['kind'];
+$id = $_POST['id'];
 
-$stmt = $conn->prepare('INSERT INTO foods VALUES(:id, :food, :food_price, :kind)');
-$stmt->execute(array(':id' => null, ':food' => $name, ':food_price' => $price, ':kind' => $id));
+switch ($id)
+{
+    case "Plato":
+        $sql = "INSERT INTO meal VALUES(:id, :name, :price);";
+        break;
+    case "Bebida":
+        $sql = "INSERT INTO bev VALUES(:id, :name, :price);";
+        break;
+    case "Postre":
+        $sql = "INSERT INTO dess VALUES(:id, :name, :price);";
+        break;
+    case "Vino":
+        $sql = "INSERT INTO wine VALUES(:id, :name, :price);";
+        break;
+    default:
+        $sql = "INSERT INTO coffe VALUES(:id, :name, :price);";
+}
+
+$stmt->execute(array(':id' => null, ':name' => $name, ':price' => $price));
 echo "<script>if (!alert('Artículo : " . $name . " Agregado Correctamente.')) window.close('_self')</script>";
 $title = "Artículo Agregado";
 include "inc/header.php";

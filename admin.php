@@ -1,4 +1,7 @@
 <!-- Este HTML es para que el Administrador use todos los servicios del sitio, facturar, ver la facturación de cada día, ver la facturación por trimestres y sacar un informe para el gestor, ver la facturación total, hacer un backup de la base de datos, agregar/modificar/eliminar productos -->
+<?php
+include "inc/fw.php";
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -57,8 +60,20 @@
 					<h3>Sistema de Facturación</h3>
 					<br>
 					<h4>Factura a la Mesa: </h4>
-					<form action="mesas.php" method="post" target="_blank">
-						<br>
+					<form action="mesa.php" method="post" target="_blank">
+                        <label><select name="table">
+                            <option value="">Selecciona una Mesa</option>
+                            <?php
+                            $sql = "SELECT * FROM mesa";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute();
+                            while ($row = $stmt->fetch(PDO::FETCH_OBJ))
+                            {
+                                echo '<option value="' . $row->id . '">' . $row->mesa . '</option>';
+                            }
+                            ?>
+                        </select> Selecciona la Mesa a Facturar</label>
+						<br><br>
 						<input type="submit" value="Factura a la Mesa" class="btn btn-success">
 					</form>
 				</div>

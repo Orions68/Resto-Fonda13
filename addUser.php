@@ -19,7 +19,7 @@ include "inc/header.php";
                         <form action="addingUser.php" method="post" onsubmit="return verify()">
                         <label><input type="text" name="client" required> Nombre</label>
                         <br><br>
-                        <label><input id="cuit" type="text" name="cuit"> C.U.I.T.</label>
+                        <label><input id="dni" type="text" name="dni"> D.N.I.</label>
                         <br><br>
                         <label><input type="text" name="email" required> E-mail</label>
                         <br><br>
@@ -31,12 +31,7 @@ include "inc/header.php";
                         <br><br>
                         <label><input type="text" name="address" required> Dirección</label>
                         <br><br>
-                        <h4>Por Favor Selecciona si el Cliente es Empresa o Particular</h4>
-                        <label><input id="res" type="radio" name="kind" value="1" checked> Responsable Inscripto</label>
-                        <br>
-                        <label><input type="radio" name="kind" value="0"> Consumidor Final</label>
-                        <br><br>
-                        <input type="submit" class="btn btn-primary" value="Agrega">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Agrega">
                         </form>
                         </div>
                         <div class="col-md-1"></div>
@@ -82,7 +77,7 @@ include "inc/header.php";
                                 ?>
                             </select> Elimina Este Cliente</label>
                             <br><br>
-                            <input class="btn btn-danger" type="submit" value="Elimina los Datos de Este Cliente">
+                            <input class="btn btn-danger btn-lg" type="submit" value="Elimina los Datos de Este Cliente">
                             </form>
                         </div>
                     </div>
