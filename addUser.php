@@ -1,8 +1,8 @@
 <?php
-include "inc/fw.php";
-include "inc/modal.html";
+include "includes/conn.php";
+include "includes/modal.html";
 $title = "Formulario para Agregar un Cliente";
-include "inc/header.php";
+include "includes/header.php";
 ?>
 <section class="container-fluid pt-3">
 <div id="pc"></div>
@@ -87,5 +87,5 @@ include "inc/header.php";
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

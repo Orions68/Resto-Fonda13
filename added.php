@@ -1,44 +1,37 @@
 <?php
-include "inc/fw.php";
-$name = $_POST['product'];
-$price = $_POST['price'];
-$id = $_POST['id'];
-
-switch ($id)
-{
-    case "Plato":
-        $sql = "INSERT INTO meal VALUES(:id, :name, :price);";
-        break;
-    case "Bebida":
-        $sql = "INSERT INTO bev VALUES(:id, :name, :price);";
-        break;
-    case "Postre":
-        $sql = "INSERT INTO dess VALUES(:id, :name, :price);";
-        break;
-    case "Vino":
-        $sql = "INSERT INTO wine VALUES(:id, :name, :price);";
-        break;
-    default:
-        $sql = "INSERT INTO coffe VALUES(:id, :name, :price);";
-}
-
-$stmt->execute(array(':id' => null, ':name' => $name, ':price' => $price));
-echo "<script>if (!alert('Artículo : " . $name . " Agregado Correctamente.')) window.close('_self')</script>";
+include "includes/conn.php";
 $title = "Artículo Agregado";
-include "inc/header.php";
-?>
-<section class="container-fluid pt-3">
-    <div id="pc"></div>
-    <div id="mobile"></div>
-    <div class="row">
-        <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div id="view1">
+include "includes/header.php";
+include "includes/modal-deismiss";
+
+if (isset($_POST["product"]))
+{
+    $name = $_POST['product'];
+    $price = $_POST['price'];
+    $id = $_POST['id'];
+
+    $sql = "INSERT INTO food VALUES(:id, :name, :price, :kind);";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array(':id' => null, ':name' => $name, ':price' => $price, ':kind' => $id));
+    echo "<script>toast(0, 'Artículo : $name Agregado.', 'El Artículo Ha Sido Agregado a la Base de Datos Correctamente.'));</script>";
+    ?>
+    <section class="container-fluid pt-3">
+        <div id="pc"></div>
+        <div id="mobile"></div>
+        <div class="row">
+            <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div id="view1">
+                    </div>
                 </div>
-            </div>
-        <div class="col-md-1"></div>
-    </div>
-</section>
-<?php
-include "inc/footer.html";
+            <div class="col-md-1"></div>
+        </div>
+    </section>
+    <?php
+    include "includes/footer.html";
+}
+else
+{
+    echo "<script>toast(2, 'Error Grave', 'Haz Llegado Aquí por Error.');</script>";
+}
 ?>

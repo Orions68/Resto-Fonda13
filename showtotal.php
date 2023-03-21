@@ -1,8 +1,8 @@
 <?php
-include "inc/fw.php";
+include "includes/conn.php";
 $final = 0;
 $title = "Total Facturado Hasta Ahora en el Año";
-include "inc/header.php";
+include "includes/header.php";
 
 $stmt = $conn->prepare('SELECT totaliva FROM invoice');
 $stmt->execute();
@@ -28,5 +28,5 @@ while($row = $stmt->fetch(PDO::FETCH_OBJ))
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

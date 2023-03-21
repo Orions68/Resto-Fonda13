@@ -1,11 +1,11 @@
 <?php
-include "inc/fw.php";
-include "inc/function.php";
+include "includes/conn.php";
+include "includes/function.php";
 $table = $_POST['table'];
 $date = $_POST['date'];
 $latin = explode("-", $date);
 $title = "Facturas de $table";
-include "inc/header.php";
+include "includes/header.php";
 ?>
 <section class="container-fluid pt-3">
 <div id="pc"></div>
@@ -43,7 +43,6 @@ include "inc/header.php";
                         {
                             $id = $row->id;
                             $total = $row->total;
-                            $totaliva = $row->totaliva;
                             // $partial = explode(",", $row->partial);
                             $wait = $row->wait_id;
                             if ($wait == 0)
@@ -110,17 +109,17 @@ include "inc/header.php";
                                     <h5>' . $partial . '</h5>
                                     </div>
                                     <div class="column right" style="background-color:#eeeeee;">
-                                    <h5>' . number_format((float)$total, 2, ",", ".") . ' $</h5>
+                                    <h5>' . number_format((float)$total * 100 / 121, 2, ",", ".") . ' $</h5>
                                     </div>
                                     <div class="column right" style="background-color:#f0f0f0; text-align: center;">
                                     <h5>21 %</h5>
                                     </div>
                                     <div class="column last" style="background-color:#f8f8f8;">
-                                    <h5>' . number_format((float)$total * .21, 2, ",", ".") . ' $</h5>
+                                    <h5>' . number_format((float)$total * 100 / 121 * .21, 2, ",", ".") . ' $</h5>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="column total">Total I.V.A. Incluido: ' . number_format((float)$totaliva, 2, ",", ".") . ' $
+                                    <div class="column total">Total I.V.A. Incluido: ' . number_format((float)$total, 2, ",", ".") . ' $
                                 </div></div>
                             </div>
                         <a id="image' . $j . '" download="Factura de: ' . $table . '.png"></a>
@@ -135,6 +134,7 @@ include "inc/header.php";
                             </div>
                         </div>
                                     <br><br>';
+                                    $table = "";
                                     $product = "";
                                     $price = "";
                                     $qtty = "";
@@ -152,5 +152,5 @@ include "inc/header.php";
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

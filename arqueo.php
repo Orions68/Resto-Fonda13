@@ -1,6 +1,6 @@
 <?php
 $title = "Arqueo de Caja";
-include "inc/header.php";
+include "includes/header.php";
 ?>
 
 <section class="container-fluid pt-3">
@@ -28,5 +28,5 @@ include "inc/header.php";
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

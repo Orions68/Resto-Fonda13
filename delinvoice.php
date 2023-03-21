@@ -1,8 +1,8 @@
 <?php
-include "inc/fw.php";
-include "inc/modal-dismiss.html";
+include "includes/conn.php";
+include "includes/modal-dismiss.html";
 $title = "Borrando Factura";
-include "inc/header.php";
+include "includes/header.php";
 if (isset($_POST["id"]))
 {
     $id = $_POST["id"];
@@ -34,5 +34,5 @@ if (isset($_POST["id"]))
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

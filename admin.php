@@ -1,6 +1,6 @@
 <!-- Este HTML es para que el Administrador use todos los servicios del sitio, facturar, ver la facturación de cada día, ver la facturación por trimestres y sacar un informe para el gestor, ver la facturación total, hacer un backup de la base de datos, agregar/modificar/eliminar productos -->
 <?php
-include "inc/fw.php";
+include "includes/conn.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -138,11 +138,13 @@ include "inc/fw.php";
 							<form id="form" action="added.php" method="post" target="_blank">
 								<label><input type="text" name="product" placeholder="Producto" required> Producto en Venta</label>
 								<br><br>
-								<label><select name="kind" required>
+								<label><select name="id" required>
 									<option value="">Selecciona la Familia del artículo</option>
 									<option value=0>Platos</option>
 									<option value=1>Bebidas</option>
 									<option value=2>Postres</option>
+                                    <option value=3>Cafés</option>
+                                    <option value=4>Vinos</option>
 									</select> Grupo</label>
 								<br><br>
 								<label><input type="number" step=".05" name="price" placeholder="Precio" required> Precio del Producto</label>

@@ -1,8 +1,8 @@
 <?php
-include "inc/fw.php";
-include "inc/modal-dismiss.html";
+include "includes/conn.php";
+include "includes/modal-dismiss.html";
 $title = "Eliminando un Cliente";
-include "inc/header.php";
+include "includes/header.php";
 if (isset($_POST["client"]))
 {
     $id = $_POST["client"];

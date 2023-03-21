@@ -1,6 +1,6 @@
 <?php
 $title = "Pedidos del Restauramte";
-include "inc/header.php";
+include "includes/header.php";
 ?>
 <section class="container-fluid pt-3">
 <div id="pc"></div>
@@ -14,8 +14,8 @@ include "inc/header.php";
                         <button onclick="window.open('adding.php?id=0')" style="width:220px; height:128px;" class="btn btn-primary btn-lg">Agregar Platos</button>
                         <button onclick="window.open('adding.php?id=1')" style="width:220px; height:128px; margin-left:20%;" class="btn btn-success btn-lg">Agregar Bebidas</button>
                         <button onclick="window.open('adding.php?id=2')" style="width:220px; height:128px; margin-left:20%;" class="btn btn-danger btn-lg">Agregar Postres</button>
-                        <button onclick="window.open('adding.php?id=3')" style="width:220px; height:128px; margin-left:20%;" class="btn btn-secondary btn-lg">Agregar Vino</button>
-                        <button onclick="window.open('adding.php?id=4')" style="width:220px; height:128px; margin-left:20%;" class="btn btn-info btn-lg">Agregar Café</button>
+                        <button onclick="window.open('adding.php?id=3')" style="width:220px; height:128px; margin-left:20%;" class="btn btn-secondary btn-lg">Agregar Café</button>
+                        <button onclick="window.open('adding.php?id=4')" style="width:220px; height:128px; margin-left:20%;" class="btn btn-info btn-lg">Agregar Vino</button>
                         <br><br>
                         <button onclick="window.close()" style="width:112px; height:48px; float:right; margin-top:15%" class="btn btn-secondary btn-lg">Cierra esta Ventana</button>
                     </div>
@@ -25,5 +25,5 @@ include "inc/header.php";
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

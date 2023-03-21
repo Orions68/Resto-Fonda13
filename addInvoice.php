@@ -1,5 +1,5 @@
 <?php
-include "inc/fw.php";
+include "includes/conn.php";
 
 if (isset($_POST["table"]))
 {
@@ -9,13 +9,13 @@ if (isset($_POST["table"]))
         unlink($table . ".txt");
     }
     $client = $_POST["client"];
-    if ($client == 0)
+    if ($client == "")
     {
         $client = null;
     }
     $invoice = $_POST['invoice'];
     $wait = $_POST["wait"];
-    if ($wait == 0)
+    if ($wait == "")
     {
         $wait = null;
     }
@@ -37,11 +37,10 @@ if (isset($_POST["table"]))
         $total += $price[$j] * $qtty[$j];
         $j++;
     }
-    echo $i . "<br>" . $record[0] . "<br>" . $record[1];
 }
-include "inc/modal-invoice.html";
+include "includes/modal-invoice.html";
 $title = "Guardando Factura";
-include "inc/header.php";
+include "includes/header.php";
 ?>
 <section class="container-fluid pt-3">
     <div id="pc"></div>
@@ -59,19 +58,11 @@ include "inc/header.php";
                     $row = $stmt->fetch(PDO::FETCH_OBJ);
                     $invoice_id = $row->id;
 
-                    $sql = "INSERT INTO sold VALUES(:id, :invoice_id, :food_id, :wine_id, :article_qtty);";
+                    $sql = "INSERT INTO sold VALUES(:id, :invoice_id, :food_id, :qtty);";
                     $stmt = $conn->prepare($sql);
                     for ($i = 0; $i < count($id); $i++)
                     {
-                        echo $i . "<br>" . $id[$i];
-                        if ($id[$i] >= 1000)
-                        {
-                            $stmt->execute(array(':id' => null, ':invoice_id' => $invoice_id, ':food_id' => null, ':wine_id' => $id[$i], ':article_qtty' => $qtty[$i]));
-                        }
-                        else
-                        {
-                            $stmt->execute(array(':id' => null, ':invoice_id' => $invoice_id, ':food_id' => $id[$i], ':wine_id' => null, ':article_qtty' => $qtty[$i]));
-                        }
+                        $stmt->execute(array(':id' => null, ':invoice_id' => $invoice_id, ':food_id' => $id[$i], ':qtty' => $qtty[$i]));
                     }
                     echo "<script>toast('0', 'Facturado', 'Factura de monto: " . $total . " Alamacenada en la Base de Datos Correctamente.');</script>";
                     ?>
@@ -81,5 +72,5 @@ include "inc/header.php";
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

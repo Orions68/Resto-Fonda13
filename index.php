@@ -52,7 +52,7 @@ while ($n < count($files))
 	$n++;
 }
 $title = "Esperando Datos";
-include "inc/reload.php";
+include "includes/reload.php";
 ?>
 <section class="container-fluid pt-3">
     <div class="row">
@@ -78,5 +78,5 @@ include "inc/reload.php";
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

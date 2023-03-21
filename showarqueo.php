@@ -1,5 +1,5 @@
 <?php
-include "inc/fw.php";
+include "includes/conn.php";
 $timestart = $_POST['start'];
 setlocale(LC_TIME, 'es_ES.UTF-8');
 date_default_timezone_set("America/Argentina/Buenos_Aires");
@@ -7,7 +7,7 @@ $day = date("Y-m-d");
 $day_after = date(("Y-m-d"), strtotime($timestart . '+1 day'));
 $final = 0;
 $title = "Mostrando Arqueo de Caja por Fecha";
-include "inc/header.php";
+include "includes/header.php";
 
 $stmt = $conn->prepare('SELECT totaliva, date, time FROM invoice WHERE date>="' . $timestart . '"');
 $stmt->execute();
@@ -42,5 +42,6 @@ while($row = $stmt->fetch(PDO::FETCH_OBJ))
         <div class="col-md-1"></div>
     </div>
 </section>
-</body>
-</html>
+<?php
+include "includes/footer.html";
+?>

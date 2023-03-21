@@ -1,5 +1,5 @@
 <?php
-include "inc/fw.php";
+include "includes/conn.php";
 $tables = array();
 $i = 0;
 $stmt = $conn->prepare("SHOW TABLES");

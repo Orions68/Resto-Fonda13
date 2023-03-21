@@ -1,10 +1,11 @@
 <?php
-include 'inc/fw.php';
-include 'inc/function.php';
+include 'includes/conn.php';
+include 'includes/function.php';
 include 'vendor/autoload.php';
 
 	$date = $_POST['date']; // El Trimestre recibido desde admin.php.
 	$year = $_POST['year']; // El Año recibido desde admin.php.
+    $table_name = "";
 	$product = "";
 	$price = "";
 	$qtty = "";
@@ -64,7 +65,7 @@ if(isset($_POST["export"]))
 		
 		$active_sheet->setCellValue('A' . $count, $row["id"]);
         $active_sheet->getStyle('A' . $count)->getAlignment()->setHorizontal("left");
-		$active_sheet->setCellValue('B' . $count, $table);
+		$active_sheet->setCellValue('B' . $count, $table_name);
         $active_sheet->setCellValue('C' . $count, $client);
 		$active_sheet->setCellValue('D' . $count, $product);
 		$active_sheet->setCellValue('E' . $count, $price);
@@ -76,13 +77,13 @@ if(isset($_POST["export"]))
         $active_sheet->getStyle('G' . $count)->getAlignment()->setHorizontal("right"); // Alineación del texto con la cadena 'right', Alinea a la Derecha.
 		$active_sheet->setCellValue('H' . $count, $row["time"]);
         $active_sheet->getStyle('H' . $count)->getAlignment()->setHorizontal("right"); // Alineación del texto con la cadena 'right', Alinea a la Derecha.
-		$active_sheet->setCellValue('I' . $count, $row["total"]);
+		$active_sheet->setCellValue('I' . $count, $row["total"] * 100 / 121);
         $active_sheet->getStyle('I' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
 		$active_sheet->setCellValue('J' . $count, "21 %");
         $active_sheet->getStyle('J' . $count)->getAlignment()->setHorizontal("center");
-        $active_sheet->setCellValue('K' . $count, $row["total"] * 1.21 - $row["total"]);
+        $active_sheet->setCellValue('K' . $count, $row["total"] * 100 / 121 * .21);
         $active_sheet->getStyle('K' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
-		$active_sheet->setCellValue('L' . $count, $row["totaliva"]);
+		$active_sheet->setCellValue('L' . $count, $row["total"]);
 		$active_sheet->getStyle('L' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
 
 		$count++;
@@ -144,7 +145,7 @@ if(isset($_POST["export"]))
 }
 
 $title = "Exportando Facturas";
-include "inc/header.php";
+include "includes/header.php";
 ?>
     	<section class="container-fluid pt-3">
         <div id="pc"></div>
@@ -201,7 +202,7 @@ include "inc/header.php";
 
 							echo '<tr>
 							<td>' . $row["id"] . '</td>
-							<td>' . $table . '</td>
+							<td>' . $table_name . '</td>
                             <td>' . $client . '</td>
                             <td>' . $wait . '</td>
 							<td>' . $product . '</td>
@@ -209,11 +210,12 @@ include "inc/header.php";
 							<td>' . $qtty . '</td>
 							<td>' . $row["time"] . '</td>
 							<td>' . $row["date"] . '</td>
-							<td>' . number_format((float)$row["total"], 2, ',', '.') . ' $</td>
+							<td>' . number_format((float)$row["total"] * 100 / 121, 2, ',', '.') . ' $</td>
 							<td>21 %</td>
-                            <td>' . number_format((float)$row["total"] * 1.21 - $row["total"], 2, ',', '.') . ' $</td>
-							<td>' . number_format((float)$row["totaliva"], 2, ',', '.') . ' $</td>
+                            <td>' . number_format((float)$row["total"] * 100 / 121 * .21, 2, ',', '.') . ' $</td>
+							<td>' . number_format((float)$row["total"], 2, ',', '.') . ' $</td>
 							</tr>';
+                            $table_name = "";
 							$product = "";
 							$price = "";
 							$qtty = "";
@@ -228,5 +230,5 @@ include "inc/header.php";
 			</div>
     	</section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

@@ -1,8 +1,8 @@
 <?php
-include "inc/fw.php";
-include "inc/modal-dismiss.html";
+include "includes/conn.php";
+include "includes/modal-dismiss.html";
 $title = "Agregando un Cliente para Delivery/Facturación";
-include "inc/header.php";
+include "includes/header.php";
 $name = htmlspecialchars($_POST['client']);
 $dni = htmlspecialchars($_POST['dni']);
 $pass = htmlspecialchars($_POST['pass']);
@@ -12,28 +12,22 @@ $phone = htmlspecialchars($_POST['phone']);
 $address = htmlspecialchars($_POST['address']);
 $ok = false;
 
-if ($dni != "")
+$sql = "SELECT id FROM delivery WHERE phone='$phone' OR email='$email' OR dni='$dni';";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+if ($stmt->rowCount() > 0)
 {
-    $sql = "SELECT id FROM delivery WHERE phone='" . $phone . "' OR email='" . $email . "' OR dni='" . $dni . "';";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    if ($stmt->rowCount() > 0)
-    {
-        echo "<script>toast ('1', 'Cliente ya Registrado', 'El Teléfono, E-mail o C.U.I.T. ya Están Registrados en la Base de Datos. Si Hay Algúna Modificación en los Datos Usa Modificar o Eliminar Clientes.');</script>";
-    }
-    else
-    {
-        $ok = true;
-    }
+    echo "<script>toast ('1', 'Cliente ya Registrado', 'El Teléfono, E-mail o D.N.I. ya Están Registrados en la Base de Datos. Si Hay Algúna Modificación en los Datos Usa Modificar o Eliminar Clientes.');</script>";
 }
 else
 {
     $ok = true;
 }
+
 if ($ok)
 {
     $stmt = $conn->prepare('INSERT INTO delivery VALUES(:id, :name, :dni, :email, :pass, :phone, :address)');
-    if ($cuit != "")
+    if ($dni != "")
     {
         $stmt->execute(array(':id' => null, ':name' => $name, ':dni' => $dni, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));
     }
@@ -57,5 +51,5 @@ if ($ok)
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

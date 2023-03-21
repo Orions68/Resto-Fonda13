@@ -1,24 +1,8 @@
 <?php
 $id = $_GET['id'];
-switch ($id)
-{
-    case 0:
-        $name = "Plato";
-        break;
-    case 1:
-        $name = "Bebida";
-        break;
-    case 2:
-        $name = "Postre";
-        break;
-    case 3:
-        $name = "Vino";
-        break;
-    default:
-        $name = "Café";
-}
+
 $title = "Agregando Artículos";
-include "inc/header.php";
+include "includes/header.php";
 ?>
 <section class="container-fluid pt-3">
 <div id="pc"></div>
@@ -29,14 +13,14 @@ include "inc/header.php";
                 <div id="view1">
                     <br><br><br><br>
                     <div class="login">
-                        <h1>Agregando <?php echo $name; ?></h1>
+                        <h1>Agregando Artículo</h1>
                         <br>
                         <form action="added.php" method="post">
                         <label><input type="text" name="product" placeholder="Nombre" style="font-size:x-large;" required> Nombre del Artículo a Agregar</label>
                         <br><br>
                         <label><input type="number" step=".05" name="price" placeholder="Precio" style="font-size:x-large;" required> Precio</label>
                         <br><br>
-                        <input type="hidden" name="id" value="<?php echo $name; ?>">
+                        <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="submit" value="Agrego este Artículo" style="float:right; width:220px; height:128px;" class="btn btn-primary">
                         </form>
                     </div>
@@ -46,5 +30,5 @@ include "inc/header.php";
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

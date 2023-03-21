@@ -1,8 +1,8 @@
 <?php
-include "inc/fw.php";
-include "inc/modal.html";
+include "includes/conn.php";
+include "includes/modal.html";
 $title = "Modificando los Datos de un Cliente";
-include "inc/header.php";
+include "includes/header.php";
 if (isset($_POST["client"]))
 {
     $id = $_POST["client"];
@@ -24,7 +24,7 @@ if (isset($_POST["client"]))
                     <form action="modifyuser.php" method="post" onsubmit="return verify()">
                     <?php
                     echo '<label><input type="text" name="client" value="' . $row->name . '" required> Nombre Completo</label><br><br>
-                    <label><input id="cuit" type="text" name="cuit" value="' . $row->cuit . '"> C.U.I.T.</label><br><br>
+                    <label><input id="cuit" type="text" name="cuit" value="' . $row->cuit . '"> D.N.I.</label><br><br>
                     <label><input type="text" name="email" value="' . $row->email . '" required> E-mail</label><br><br>
                     <label><input id="pass" type="password" name="pass"> Contraseña</label><br><br>
                     <label><input id="pass2" type="password" name="pass2"> Repite Contraseña</label><br><br>
@@ -54,3 +54,6 @@ if (isset($_POST["client"]))
         <div class="col-md-1"></div>
     </div>
 </section>
+<?php
+include "includes/footer.html";
+?>

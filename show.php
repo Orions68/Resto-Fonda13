@@ -1,7 +1,7 @@
 <?php
-include "inc/fw.php";
+include "includes/conn.php";
 $title = "Ver Todas las Facturas";
-include "inc/header.php";
+include "includes/header.php";
 ?>
 <section class="container-fluid pt-3">
     <div class="row">
@@ -63,5 +63,6 @@ include "inc/header.php";
         <div class="col-md-1"></div>
     </div>
 </section>
-</body>
-</html>
+<?php
+include "includes/footer.html";
+?>

@@ -1,8 +1,8 @@
 <?php
-include "inc/fw.php";
+include "includes/conn.php";
 $title = "Facturas por Días";
-include "inc/header.php";
-include "inc/modal.html";
+include "includes/header.php";
+include "includes/modal.html";
 
 if (isset($_POST["date"]))
 {
@@ -138,14 +138,14 @@ if (isset($_POST["date"]))
         <br>
 <?php
 }
-include "inc/footer.html";
+include "includes/footer.html";
 
 function getProduct($conn, $product_id)
 {
-    $sql_product = "SELECT food, food_price FROM foods WHERE id='$product_id'";
+    $sql_product = "SELECT name, price FROM food WHERE id=$product_id;";
     $stmt = $conn->prepare($sql_product);
     $stmt->execute();
     $row_product = $stmt->fetch(PDO::FETCH_OBJ);
-    return $row_product->food . "," . $row_product->food_price;
+    return $row_product->name . "," . $row_product->price;
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 $title = "Buscar Facturas por Mesa y/o Fecha";
-include "inc/header.php";
+include "includes/header.php";
 ?>
 <section class="container-fluid pt-3">
     <div class="row">
@@ -47,12 +47,13 @@ include "inc/header.php";
 						<option value="Mesa 13">Mesa 13</option>
 					<select> Selecciona la Mesa</label>
 					<br><br>
-					<input type="submit" value="Ver Facturas" style="width:128px; height:64px;">
+					<input type="submit" value="Ver Facturas" class="btn btn-primary btn-lg">
+                    </form>
 				</div>
             </div>
         <div class="col-md-1"></div>
     </div>
 </section>
-</form>
-</body>
-</html>
+<?php
+include "includes/footer.html";
+?>

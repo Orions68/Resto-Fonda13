@@ -1,8 +1,8 @@
 <?php
-include "inc/fw.php";
-include "inc/modal-update.html";
+include "includes/conn.php";
+include "includes/modal-update.html";
 $title = "Modificar/Eliminar un Artículo";
-include "inc/header.php";
+include "includes/header.php";
 
 if (isset($_POST["id"]))
 {
@@ -71,5 +71,5 @@ if (isset($_POST["id"]))
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

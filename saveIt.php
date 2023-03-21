@@ -1,6 +1,6 @@
 <?php
-include "inc/fw.php";
-include "inc/function.php";
+include "includes/conn.php";
+include "includes/function.php";
 include 'vendor/autoload.php';
 
 if (isset($_REQUEST["id"]))
@@ -39,15 +39,15 @@ if (isset($_REQUEST["id"]))
 	$active_sheet->setCellValue('K1', 'Total + I.V.A.');
 
     $id = $row->id;
-    $table = $row->tabl;
+    $table = $row->table_id;
+    $table_name = getTable($conn, $table);
     $total = $row->total;
-    $totaliva = $row->totaliva;
     $mydate = $row->date;
     $time = $row->time;
 
     $active_sheet->setCellValue('A2', $id);
     $active_sheet->getStyle('A2')->getAlignment()->setHorizontal("left");
-    $active_sheet->setCellValue('B2', $table);
+    $active_sheet->setCellValue('B2', $table_name);
     $active_sheet->setCellValue('C2', $wait);
     $active_sheet->setCellValue('D2', $product);
     $active_sheet->setCellValue('E2', $price);
@@ -59,14 +59,14 @@ if (isset($_REQUEST["id"]))
     $active_sheet->getStyle('G2')->getAlignment()->setHorizontal("right");
     $active_sheet->setCellValue('H2', $time);
     $active_sheet->getStyle('H2')->getAlignment()->setHorizontal("right");
-    $active_sheet->setCellValue('I2', $total);
+    $active_sheet->setCellValue('I2', $total * 100 / 121);
     $active_sheet->getStyle('I2')->getNumberFormat()->setFormatCode('#,##0.00 $');
     $active_sheet->setCellValue('J2', "21%");
     $active_sheet->getStyle('J2')->getAlignment()->setHorizontal("center");
-    $active_sheet->setCellValue('K2', $totaliva);
+    $active_sheet->setCellValue('K2', $total * 100 / 121 * .21);
 	$active_sheet->getStyle('K2')->getNumberFormat()->setFormatCode('#,##0.00 $');
 	$active_sheet->setCellValue('J4', "Total:");
-	$active_sheet->setCellValue('K4', $totaliva);
+	$active_sheet->setCellValue('K4', $total);
 	$active_sheet->getStyle('K4')->getNumberFormat()->setFormatCode('#,##0.00 $');
 	$active_sheet->setCellValue('A6', "Fonda 13 - C.U.I.T. 2-25000000-2 Calle Santa María de Oro Nº 47, 7600, Mar del Plata");
 
@@ -99,7 +99,7 @@ if (isset($_REQUEST["id"]))
 		
 	$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($sheet, "Xlsx");
 
-	$file_name = "Factura a $table - $mydate.Xlsx";
+	$file_name = "Factura a $table_name - $mydate.Xlsx";
 
 	$writer->save($file_name);
 

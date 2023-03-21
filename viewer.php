@@ -1,7 +1,7 @@
 <?php
-include "inc/modal.html";
+include "includes/modal.html";
 $title = "Ver Facturas por Mesas";
-include "inc/header.php";
+include "includes/header.php";
 ?>
 <section class="container-fluid pt-3">
 <div id="pc"></div>
@@ -102,5 +102,5 @@ include "inc/header.php";
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>

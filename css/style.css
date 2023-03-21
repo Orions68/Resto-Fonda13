@@ -64,9 +64,14 @@ label, input, a, select, option
     font-size: 1.3rem; /* Agrando las fuetes de las label, los input y los enlaces a 1.3 rem. */
 }
 
-select
+.name
 {
 	width: 440px;
+}
+
+.number
+{
+	width: 64px;
 }
 
 table /* Personalizo la tabla con borde rojo y tamaño de la fuente también a 1.3 rem, con width 120% para que todas las columnas tengan espacio al final. */

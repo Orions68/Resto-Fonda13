@@ -1,7 +1,8 @@
 <?php
-include "inc/fw.php";
+include "includes/conn.php";
 
 $table = $_POST["table"];
+$table_name = getTable($conn, $_POST["table"]);
 if (isset($_POST['invoice']))
 {
     $wait = $_POST["wait"];
@@ -40,12 +41,12 @@ if (isset($_POST['invoice']))
 }
 if (!isset($_POST["wait"]))
 {
-    $wait = 0;
+    $wait = "";
 }
-$title = "Pedido de la Mesa:" . $table;
-include "inc/header.php";
+$title = "Pedido de la Mesa: " . $table_name;
+include "includes/header.php";
 ?>
-<h2>Facturando : <?php echo $table ?></h2>
+<h2>Facturando : <?php echo $table_name ?></h2>
 <br><br>
 <section class="container-fluid pt-3">
 <div id="view1">
@@ -53,30 +54,21 @@ include "inc/header.php";
 <div id="mobile"></div>
 <div class="row">
 	<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<label><select name="plate" id="meal">
+		<div class="col-md-8">
+			<label><select class="name" name="plate" id="meal">
                 <option value="">Selecciona un Plato</option>
 			<?php
-			$stmt = $conn->prepare('SELECT * FROM food WHERE kind=0');
+			$stmt = $conn->prepare('SELECT * FROM food WHERE kind=0;');
 			$stmt->execute();
 			while($row = $stmt->fetch(PDO::FETCH_OBJ))
 			{
 				echo  '<option value="' . $row->id . ',' . $row->name . ',' . $row->price . '">' . $row->name . ', ' . $row->price . '</option>';
 			}
 			?>
-			</select> Plato seleccionado por el Cliente&nbsp;&nbsp;&nbsp;</label>
-			<label><select name="qtty" id="qtty">
-				<option value=1>1</option>
-				<option value=2>2</option>
-				<option value=3>3</option>
-				<option value=4>4</option>
-				<option value=5>5</option>
-				<option value=6>6</option>
-				<option value=7>7</option>
-				<option value=8>8</option>
-				<option value=9>9</option>
-				<option value=10>10</option>
-			</select> Cantidad de Platos&nbsp;&nbsp;</label>
+			</select> Plato Seleccionado por el Cliente&nbsp;&nbsp;&nbsp;</label>
+            <label><input id="qtty" type="number" name="qtty" value="1" min="1"> Cantidad de Platos</label>
+            </div>
+            <div class="col-md-2">
 			<button onclick="add_plate()" class="btn btn-info btn-lg">Agregar Plato</button>
 		</div>
 	<div class="col-md-1"></div>
@@ -84,11 +76,11 @@ include "inc/header.php";
 <br><br><br>
 <div class="row">
 	<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<label><select name="bever" id="bev">
+		<div class="col-md-8">
+			<label><select class="name" name="bever" id="bev">
             <option value="">Selecciona una Bebida</option>
 			<?php
-			$stmt = $conn->prepare('SELECT * FROM food WHERE kind=1');
+			$stmt = $conn->prepare('SELECT * FROM food WHERE kind=1;');
 			$stmt->execute();
 			while($row = $stmt->fetch(PDO::FETCH_OBJ))
 			{
@@ -96,18 +88,9 @@ include "inc/header.php";
 			}
 			?>
 			</select> Bebida Seleccionada por el Cliente</label>
-			<label><select name="qtty2" id="qtty2">
-				<option value=1>1</option>
-				<option value=2>2</option>
-				<option value=3>3</option>
-				<option value=4>4</option>
-				<option value=5>5</option>
-				<option value=6>6</option>
-				<option value=7>7</option>
-				<option value=8>8</option>
-				<option value=9>9</option>
-				<option value=10>10</option>
-			</select> Cantidad de Bebidas</label>
+			<label><input id="qtty2" type="number" name="qtty2" value="1" min="1"> Cantidad de Bebidas</label>
+            </div>
+            <div class="col-md-2">
 			<button onclick="add_bebida()" class="btn btn-info btn-lg">Agregar Bebida</button>
 		</div>
 	<div class="col-md-1"></div>
@@ -115,11 +98,11 @@ include "inc/header.php";
 <br><br><br>
 <div class="row">
 	<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<label><select name="dessert" id="dess">
+		<div class="col-md-8">
+			<label><select class="name" name="dessert" id="dess">
             <option value="">Selecciona un Postre</option>
 			<?php
-			$stmt = $conn->prepare('SELECT * FROM food WHERE kind=2');
+			$stmt = $conn->prepare('SELECT * FROM food WHERE kind=2;');
 			$stmt->execute();
 			while($row = $stmt->fetch(PDO::FETCH_OBJ))
 			{
@@ -127,18 +110,9 @@ include "inc/header.php";
 			}
 			?>
 			</select> Postre Seleccionado por el Cliente&nbsp;</label>
-			<label><select name="qtty3" id="qtty3">
-				<option value=1>1</option>
-				<option value=2>2</option>
-				<option value=3>3</option>
-				<option value=4>4</option>
-				<option value=5>5</option>
-				<option value=6>6</option>
-				<option value=7>7</option>
-				<option value=8>8</option>
-				<option value=9>9</option>
-				<option value=10>10</option>
-			</select> Cantidad de Postres&nbsp;</label>
+			<label><input id="qtty3" type="number" name="qtty3" value="1" min="1"> Cantidad de Postres</label>
+            </div>
+            <div class="col-md-2">
 			<button onclick="add_postre()" class="btn btn-info btn-lg">Agregar Postre</button>
 		</div>
 	<div class="col-md-1"></div>
@@ -146,11 +120,11 @@ include "inc/header.php";
 <br><br><br>
 <div class="row">
 	<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<label><select name="coffe" id="coffe">
+		<div class="col-md-8">
+			<label><select class="name" name="coffe" id="coffe">
             <option value="">Selecciona un Café</option>
 			<?php
-			$stmt = $conn->prepare('SELECT * FROM food WHERE kind=3');
+			$stmt = $conn->prepare('SELECT * FROM food WHERE kind=3;');
 			$stmt->execute();
 			while($row = $stmt->fetch(PDO::FETCH_OBJ))
 			{
@@ -158,18 +132,9 @@ include "inc/header.php";
 			}
 			?>
 			</select> Café Seleccionado por el Cliente&nbsp;</label>
-			<label><select name="qtty4" id="qtty4">
-				<option value=1>1</option>
-				<option value=2>2</option>
-				<option value=3>3</option>
-				<option value=4>4</option>
-				<option value=5>5</option>
-				<option value=6>6</option>
-				<option value=7>7</option>
-				<option value=8>8</option>
-				<option value=9>9</option>
-				<option value=10>10</option>
-			</select> Cantidad de Cafés&nbsp;</label>
+			<label><input id="qtty4" type="number" name="qtty4" value="1" min="1"> Cantidad de Cafés</label>
+            </div>
+            <div class="col-md-2">
 			<button onclick="add_coffe()" class="btn btn-info btn-lg">Agregar Café</button>
 		</div>
 	<div class="col-md-1"></div>
@@ -177,11 +142,11 @@ include "inc/header.php";
 <br><br><br>
 <div class="row">
 	<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<label><select name="wine" id="wine">
+		<div class="col-md-8">
+			<label><select class="name" class="name" name="wine" id="wine">
             <option value="">Selecciona un Vino</option>
 			<?php
-			$stmt = $conn->prepare('SELECT * FROM wine');
+			$stmt = $conn->prepare('SELECT * FROM food WHERE kind=4;');
 			$stmt->execute();
 			while($row = $stmt->fetch(PDO::FETCH_OBJ))
 			{
@@ -189,32 +154,19 @@ include "inc/header.php";
 			}
 			?>
 			</select> Vino Seleccionado por el Cliente&nbsp;</label>
-			<label><select name="qtty5" id="qtty5">
-				<option value=1>1</option>
-				<option value=2>2</option>
-				<option value=3>3</option>
-				<option value=4>4</option>
-				<option value=5>5</option>
-				<option value=6>6</option>
-				<option value=7>7</option>
-				<option value=8>8</option>
-				<option value=9>9</option>
-				<option value=10>10</option>
-			</select> Cantidad de Botellas Vino&nbsp;</label>
-			<button onclick="add_wine()" class="btn btn-info btn-lg">Agregar Postre</button>
+			<label><input id="qtty5" type="number" name="qtty5" value="1" min="1"> Cantidad de Vino</label>
+            </div>
+            <div class="col-md-2">
+			<button onclick="add_wine()" class="btn btn-info btn-lg">Agregar Vino</button>
 		</div>
 	<div class="col-md-1"></div>
 </div>
 <br><br><br>
 <form action='addInvoice.php' method="post">
-<input type="hidden" name="client" value="0">
+<input type="hidden" name="client" value="">
     <label><select name="client" style="width: 600px;">
-            <option value="0">Consumidor Final</option>
+            <option value="">Consumidor Final</option>
             <?php
-            if ($wait == "")
-            {
-                $wait = 0;
-            }
             $sql = "SELECT id, name from delivery";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
@@ -279,5 +231,14 @@ if (isset($_POST['invoice']))
 echo "<button style='float:right; width:128px; height:64px;' onclick='deleting(" . '"' . $table . '"' . ")'  class='btn btn-danger'>Anular Factura</button><br><br><br>";
 ?>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
+
+function getTable($conn, $table)
+{
+    $sql = "SELECT mesa FROM mesa WHERE id=$table;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_OBJ);
+    return $row->mesa;
+}
 ?>

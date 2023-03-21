@@ -1,8 +1,8 @@
 <?php
-include "inc/fw.php";
-include "inc/function.php";
+include "includes/conn.php";
+include "includes/function.php";
 $title = "Última Factura";
-include "inc/header.php";
+include "includes/header.php";
 
 $sql = "SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice ORDER BY id desc limit 1";
 $stmt_date = $conn->prepare("SET lc_time_names = 'es_ES'");
@@ -13,7 +13,7 @@ $row = $stmt->fetch(PDO::FETCH_OBJ);
 $id = $row->id;
 $client = $row->client_id;
 $wait = $row->wait_id;
-$table = $row->table_id;
+$table = getTable($conn, $row->table_id);
 $product = "";
 $price = "";
 $qtty = "";
@@ -87,11 +87,11 @@ $time = $row->time;
                             <h5>21 %</h5>
                             </div>
                             <div class="column last" style="background-color:#f8f8f8;">
-                            <h5>' . number_format((float)$total * .21, 2, ",", ".") . ' $</h5>
+                            <h5>' . number_format((float)$total * 100 / 121  * .21, 2, ",", ".") . ' $</h5>
                             </div>
                         </div>
                     <div class="row">
-                        <div class="column total">Total I.V.A. Incluido: ' . number_format((float)$totaliva, 2, ",", ".") . ' $
+                        <div class="column total">Total I.V.A. Incluido: ' . number_format((float)$total, 2, ",", ".") . ' $
                     </div></div>
                 </div>
                     <a id="image0" download="Factura a: ' . $table . '.png"></a>
@@ -114,5 +114,5 @@ $time = $row->time;
     </div>
 </section>
 <?php
-include "inc/footer.html";
+include "includes/footer.html";
 ?>
