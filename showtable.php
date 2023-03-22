@@ -25,12 +25,12 @@ include "includes/header.php";
                         if ($date == "")
                         {
                             echo "<h1>Facturas de: $table</h1>";
-                            $stmt = $conn->prepare("SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE tabl='$table' ORDER BY date DESC, time DESC");
+                            $stmt = $conn->prepare("SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE table_id='$table' ORDER BY date DESC, time DESC");
                         }
                         else
                         {
                             echo "<h1>Facturas de: $table con Fecha: " . $latin[2] . '/' . $latin[1] . '/' . $latin[0] . "</h1>";
-                            $stmt = $conn->prepare("SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE tabl='$table' AND date='$date' ORDER BY date DESC, time DESC");
+                            $stmt = $conn->prepare("SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE table_id='$table' AND date='$date' ORDER BY date DESC, time DESC");
                         }
                     }
                     $stmt_date = $conn->prepare("SET lc_time_names = 'es_ES'");
@@ -43,23 +43,13 @@ include "includes/header.php";
                         {
                             $id = $row->id;
                             $total = $row->total;
+                            $client = $row->client_id;
                             // $partial = explode(",", $row->partial);
                             $wait = $row->wait_id;
-                            if ($wait == 0)
-                            {
-                                $wait = "Fonda 13";
-                            }
-                            else
-                            {
-                                $sql = "SELECT name FORM wait WHERE id=$wait";
-                                $stmt = $conn->prepare($sql);
-                                $stmt->execute();
-                                $row = $stmt->fetch(PDO::FETCH_OBJ);
-                                $wait = $row->name;
-                            }
+                            result($conn, $row, 1, 1); // Llama a la función result, le pasa la conexión y el resultado de la base de datos.
                             echo '<div id="printable' . $j . '">
                                 <h3><br>Fonda 13 - A25000000-2 Calle Santa María de Oro 47, 7600 Mar del Plata</h3>
-                                <br><h2>Factura Nº ' . $id . ' Mesa: ' . $row->tabl . ' Atendida por: ' . $wait . '</h2>
+                                <br><h2>Factura Nº ' . $id . ' Mesa: ' . $table . ' Atendida por: ' . $wait . '</h2>
                                 <h2>Fecha : ' . $row->date . ' - ' . $row->time . '</h2>
                                 <div class="row">
                                     <div style="width: 1px;"></div>
@@ -88,8 +78,6 @@ include "includes/header.php";
                                     <h4>Pago de I.V.A.</h4>
                                     </div>
                                 </div>';
-
-                                result($conn, $row, 1, 1); // Llama a la función result, le pasa la conexión y el resultado de la base de datos.
 
                                 echo '<div class="row">
                                     <div style="width: 1px;"></div>

@@ -29,8 +29,7 @@ function result($conn, $row, $where, $how) // Función result recibe la conexió
     while ($row = $stmt->fetch(PDO::FETCH_OBJ))
     {
         $article[$i] = $row->food_id;
-        $wine[$i] = $row->wine_id;
-        $qtties[$i] = $row->article_qtty;
+        $qtties[$i] = $row->qtty;
         $i++;
     }
 

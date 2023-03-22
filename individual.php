@@ -1,6 +1,7 @@
 <?php
 include "includes/conn.php";
 $title = "Facturas por Días";
+include "includes/function.php";
 include "includes/header.php";
 include "includes/modal.html";
 
@@ -50,71 +51,77 @@ if (isset($_POST["date"]))
                     </tr>
                     
 <?php
+$table_name = "";
+$client = "";
+$wait = "";
+$price = "";
+$partial = "";
+$product = "";
+$qtty = "";
+
     foreach($result as $row)
 	{
-        $eacharticle = [];
-        $table = $row["tabl"];
-        $wait = $row["wait_id"];
-        if ($wait == 0)
-        {
-            $wait = "La Casa";
-        }
-        else
-        {
-            $sql = "SELECT name FROM wait WHERE id=$wait";
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
-            $pro = $stmt->fetch(PDO::FETCH_OBJ);
-            $wait = $pro->name;
-        }
-        $client = $row["client"];
-        if ($client == 0)
-        {
-            $client = "Consumidor Final";
-        }
-        else
-        {
-            $sql = "SELECT name FROM delivery WHERE id=$client";
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
-            $cli = $stmt->fetch(PDO::FETCH_OBJ);
-            $client = $cli->name;
-        }
-        $productArray = explode(",", $row["article"]);
-        $qttyArray = explode(",", $row["qtty"]);
-        for ($i = 0; $i < count($productArray) - 1; $i++)
-        {
-            $eacharticle[$i] = explode(":", $productArray[$i]);
-            $product_price = getProduct($conn, $eacharticle[$i][1]);
-            $preproduct = explode(",", $product_price);
-            if ($i == count($productArray) - 2)
-            {
-                $product .= $preproduct[0];
-                $price .= $preproduct[1] . " $";
-                $qtty .= $qttyArray[$i];
-            }
-            else
-            {
-                $product .= $preproduct[0] . "<br>";
-                $price .= number_format((float)$preproduct[1], 2, ',', '.') . " $<br>";
-                $qtty .= $qttyArray[$i] . "<br>";
-            }
-        }
+        result($conn, $row, 1, 0); // Llama a la función result, le pasa la conexión, el resultado de la base de datos y un 0.
+        // if ($wait == null)
+        // {
+        //     $wait = "La Casa";
+        // }
+        // else
+        // {
+        //     $sql = "SELECT name FROM wait WHERE id=$wait";
+        //     $stmt = $conn->prepare($sql);
+        //     $stmt->execute();
+        //     $pro = $stmt->fetch(PDO::FETCH_OBJ);
+        //     $wait = $pro->name;
+        // }
+        // $client = $row["client_id"];
+        // if ($client == null)
+        // {
+        //     $client = "Consumidor Final";
+        // }
+        // else
+        // {
+        //     $sql = "SELECT name FROM delivery WHERE id=$client";
+        //     $stmt = $conn->prepare($sql);
+        //     $stmt->execute();
+        //     $cli = $stmt->fetch(PDO::FETCH_OBJ);
+        //     $client = $cli->name;
+        // }
+        // $productArray = explode(",", $row["article"]);
+        // $qttyArray = explode(",", $row["qtty"]);
+        // for ($i = 0; $i < count($productArray) - 1; $i++)
+        // {
+        //     $eacharticle[$i] = explode(":", $productArray[$i]);
+        //     $product_price = getProduct($conn, $eacharticle[$i][1]);
+        //     $preproduct = explode(",", $product_price);
+        //     if ($i == count($productArray) - 2)
+        //     {
+        //         $product .= $preproduct[0];
+        //         $price .= $preproduct[1] . " $";
+        //         $qtty .= $qttyArray[$i];
+        //     }
+        //     else
+        //     {
+        //         $product .= $preproduct[0] . "<br>";
+        //         $price .= number_format((float)$preproduct[1], 2, ',', '.') . " $<br>";
+        //         $qtty .= $qttyArray[$i] . "<br>";
+        //     }
+        // }
 
         echo '<tr>
         <td>' . $row["id"] . '</td>
         <td>' . $wait . '</td>
-        <td>' . $table . '</td>
+        <td>' . $table_name . '</td>
         <td>' . $client . '</td>
         <td>' . $product . '</td>
         <td>' . $price . '</td>
         <td>' . $qtty . '</td>
         <td>' . $row["time"] . '</td>
         <td>' . $row["date"] . '</td>
-        <td>' . number_format((float)$row["total"], 2, ',', '.') . ' $</td>
+        <td>' . number_format((float)$row["total"] * 100 / 121, 2, ',', '.') . ' $</td>
         <td>21%</td>
-        <td>' . number_format((float)$row["total"] * .21, 2, ',', '.') . ' $</td>
-        <td>' . number_format((float)$row["totaliva"], 2, ',', '.') . ' $</td>
+        <td>' . number_format((float)$row["total"] * 100 / 121 * .21, 2, ',', '.') . ' $</td>
+        <td>' . number_format((float)$row["total"], 2, ',', '.') . ' $</td>
         <td><form action="delinvoice.php" method="post">
             <input type="hidden" name="id" value="' . $row["id"] . '">
             <input type="submit" value="Quitar" class="btn btn-danger">
@@ -128,24 +135,14 @@ if (isset($_POST["date"]))
     ?>
                     </table>
                         </div>
+                        <br><br>
+	                        <button class="btn btn-danger" style="width:160px; height:80px;" onclick="window.close()">Cierra Esta Ventana</button>
+                        <br>
                     </div>
                 <div class="col-md-1" style="width:3%;"></div>
             </div>
         </section>
-        <br>
-        <br>
-	    <button class="btn btn-danger" style="width:160px; height:80px;" onclick="window.close()">Cierra Esta Ventana</button>
-        <br>
 <?php
 }
 include "includes/footer.html";
-
-function getProduct($conn, $product_id)
-{
-    $sql_product = "SELECT name, price FROM food WHERE id=$product_id;";
-    $stmt = $conn->prepare($sql_product);
-    $stmt->execute();
-    $row_product = $stmt->fetch(PDO::FETCH_OBJ);
-    return $row_product->name . "," . $row_product->price;
-}
 ?>
