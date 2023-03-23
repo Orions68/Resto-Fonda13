@@ -9,19 +9,19 @@ $final = 0;
 $title = "Mostrando Arqueo de Caja por Fecha";
 include "includes/header.php";
 
-$stmt = $conn->prepare('SELECT totaliva, date, time FROM invoice WHERE date>="' . $timestart . '"');
+$stmt = $conn->prepare('SELECT total, inv_date, inv_time FROM invoice WHERE inv_date >="' . $timestart . '"');
 $stmt->execute();
 while($row = $stmt->fetch(PDO::FETCH_OBJ))
 {
 	if ($timestart != "")
 	{
-		if ($row->time >= "19:00:00" && $row->date == $timestart)
+		if ($row->inv_time >= "19:00:00" && $row->inv_date == $timestart)
 		{
-			$final += $row->totaliva;
+			$final += $row->total;
 		}
-		if ($row->date == $day_after && $row->time < "19:00:00")
+		if ($row->inv_date == $day_after && $row->inv_time < "19:00:00")
 		{
-			$final += $row->totaliva;
+			$final += $row->total;
 		}
 	}
 }

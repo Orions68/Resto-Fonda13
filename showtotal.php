@@ -4,11 +4,11 @@ $final = 0;
 $title = "Total Facturado Hasta Ahora en el Año";
 include "includes/header.php";
 
-$stmt = $conn->prepare('SELECT totaliva FROM invoice');
+$stmt = $conn->prepare('SELECT total FROM invoice');
 $stmt->execute();
 while($row = $stmt->fetch(PDO::FETCH_OBJ))
 {
-	$final += $row->totaliva;
+	$final += $row->total;
 }
 ?>
 <section class="container-fluid pt-3">
@@ -19,9 +19,9 @@ while($row = $stmt->fetch(PDO::FETCH_OBJ))
             <div class="col-md-10">
                 <div id="view1">
                     <br><br>
-					<h1>La Facturación de todo el año hasta ahora es: <?php echo $final; ?> €.</h1>
+					<h1>La Facturación de todo el año hasta ahora es: <?php echo $final; ?> $.</h1>
                     <br><br>
-                    <button class="btn btn-danger" onclick="window.close()">Cierra Esta Ventana</button>
+                    <button class="btn btn-danger btn-lg" onclick="window.close()">Cierra Esta Ventana</button>
 				</div>
             </div>
         <div class="col-md-1"></div>

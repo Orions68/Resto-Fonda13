@@ -16,7 +16,7 @@ include "includes/header.php";
 						if ($row->tables != "0")
 						{
 							echo '<div><h1>Factura de : ' .  $row->tables . '</h1></div>';
-							echo '<p>Fecha : ' . $row->date . ' - ' . $row->time . '</p>';
+							echo '<p>Fecha : ' . $row->inv_date . ' - ' . $row->inv_time . '</p>';
 							echo '<div class="row">';
 							echo '<div class="column left" style="background-color:#aaa;">';
 							echo "<h4>Artículo</h4>";

@@ -23,9 +23,9 @@ if (isset($_POST["date"]))
     $result = $stmt->fetchAll();
     ?>
 <section class="container-fluid pt-3">
+<div id="pc"></div>
+<div id="mobile"></div>
     <div class="row">
-    <div id="pc"></div>
-	<div id="mobile"></div>
         <div class="col-md-1" style="width:3%;"></div>
             <div class="col-md-10">
                 <div id="view1">
@@ -62,51 +62,6 @@ $qtty = "";
     foreach($result as $row)
 	{
         result($conn, $row, 1, 0); // Llama a la función result, le pasa la conexión, el resultado de la base de datos y un 0.
-        // if ($wait == null)
-        // {
-        //     $wait = "La Casa";
-        // }
-        // else
-        // {
-        //     $sql = "SELECT name FROM wait WHERE id=$wait";
-        //     $stmt = $conn->prepare($sql);
-        //     $stmt->execute();
-        //     $pro = $stmt->fetch(PDO::FETCH_OBJ);
-        //     $wait = $pro->name;
-        // }
-        // $client = $row["client_id"];
-        // if ($client == null)
-        // {
-        //     $client = "Consumidor Final";
-        // }
-        // else
-        // {
-        //     $sql = "SELECT name FROM delivery WHERE id=$client";
-        //     $stmt = $conn->prepare($sql);
-        //     $stmt->execute();
-        //     $cli = $stmt->fetch(PDO::FETCH_OBJ);
-        //     $client = $cli->name;
-        // }
-        // $productArray = explode(",", $row["article"]);
-        // $qttyArray = explode(",", $row["qtty"]);
-        // for ($i = 0; $i < count($productArray) - 1; $i++)
-        // {
-        //     $eacharticle[$i] = explode(":", $productArray[$i]);
-        //     $product_price = getProduct($conn, $eacharticle[$i][1]);
-        //     $preproduct = explode(",", $product_price);
-        //     if ($i == count($productArray) - 2)
-        //     {
-        //         $product .= $preproduct[0];
-        //         $price .= $preproduct[1] . " $";
-        //         $qtty .= $qttyArray[$i];
-        //     }
-        //     else
-        //     {
-        //         $product .= $preproduct[0] . "<br>";
-        //         $price .= number_format((float)$preproduct[1], 2, ',', '.') . " $<br>";
-        //         $qtty .= $qttyArray[$i] . "<br>";
-        //     }
-        // }
 
         echo '<tr>
         <td>' . $row["id"] . '</td>
@@ -134,10 +89,9 @@ $qtty = "";
 	}
     ?>
                     </table>
-                        </div>
-                        <br><br>
+                    <br><br><br>
 	                        <button class="btn btn-danger" style="width:160px; height:80px;" onclick="window.close()">Cierra Esta Ventana</button>
-                        <br>
+                        </div>
                     </div>
                 <div class="col-md-1" style="width:3%;"></div>
             </div>

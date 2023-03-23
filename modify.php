@@ -6,7 +6,7 @@ include "includes/header.php";
 if (isset($_POST["client"]))
 {
     $id = $_POST["client"];
-    $sql = "SELECT * FROM delivery WHERE id=$id";
+    $sql = "SELECT * FROM client WHERE id=$id";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_OBJ);

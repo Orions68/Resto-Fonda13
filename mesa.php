@@ -167,7 +167,7 @@ include "includes/header.php";
     <label><select name="client" style="width: 600px;">
             <option value="">Consumidor Final</option>
             <?php
-            $sql = "SELECT id, name from delivery";
+            $sql = "SELECT id, name from client";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             if ($stmt->rowCount() > 0)

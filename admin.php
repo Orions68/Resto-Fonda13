@@ -108,24 +108,31 @@ include "includes/conn.php";
 						<br>
 						<br>
 						<div>
-							<button onclick="window.open('showtotal.php', '_blank')" class="btn btn-primary" style="height: 64px;">Mostrar el Total de Ventas del Año</button>
+							<button onclick="window.open('showtotal.php', '_blank')" class="btn btn-primary" style="height: 64px;">Mostrar el Total de Ventas del Año</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button onclick="window.open('db-backup.php', '_blank')" class="btn btn-secondary" style="height: 64px;">Copia de Respaldo de la Base de Datos</button>
 						</div>
 						</div>
 						<div class="col-md-1"></div>
 						<div class="col-md-6">
-							<h2>Ver Facturas por Día de Facturación</h2>
+							<h2>Ver/Editar Facturas por Día de Facturación</h2>
 							<br>
-							<h4>Selecciona el Día, el Mes y el Año a Consultar</h4>
+							<h4>Selecciona la Fecha</h4>
 							<br>
 							<form action="individual.php" method="post" target="_blank">
-								<label><input type="date" name="date"></label>
+								<label><input type="date" name="date"> Selecciona la Fecha</label>
 									<br><br>
 									<input type="submit" value="Busca esa fecha" class="btn btn-info btn-lg">
 							</form>
 							<br><br>
-							<div>
-								<button onclick="window.open('db-backup.php', '_blank')" class="btn btn-secondary" style="height: 64px;">Copia de Respaldo de la Base de Datos</button>
-							</div>
+                            <h2>Ver Facturas por Fecha</h2>
+                            <br>
+                            <h4>Selecciona la fecha</h4>
+                            <br>
+                            <form action="showinvoices.php" method="post" target="_blank">
+                                <label><input type="date" name="date"> Selecciona la Fecha</label>
+                                <br><br>
+                                <input class="btn btn-info btn-lg" type="submit" value="Muestrame las Facturas de esa Fecha">
+                            </form>
 						</div>
 					</div>
 				</div>

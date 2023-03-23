@@ -12,7 +12,7 @@ $phone = htmlspecialchars($_POST['phone']);
 $address = htmlspecialchars($_POST['address']);
 $ok = false;
 
-$sql = "SELECT id FROM delivery WHERE phone='$phone' OR email='$email' OR dni='$dni';";
+$sql = "SELECT id FROM client WHERE phone='$phone' OR email='$email' OR dni='$dni';";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 if ($stmt->rowCount() > 0)
@@ -26,7 +26,7 @@ else
 
 if ($ok)
 {
-    $stmt = $conn->prepare('INSERT INTO delivery VALUES(:id, :name, :dni, :email, :pass, :phone, :address)');
+    $stmt = $conn->prepare('INSERT INTO client VALUES(:id, :name, :dni, :email, :pass, :phone, :address)');
     if ($dni != "")
     {
         $stmt->execute(array(':id' => null, ':name' => $name, ':dni' => $dni, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));

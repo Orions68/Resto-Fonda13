@@ -18,19 +18,19 @@ include "includes/header.php";
                     if ($table == "")
                     {
                         echo "<h1>Facturas de Fecha: " . $latin[2] . '/' . $latin[1] . '/' . $latin[0] . "</h1>";
-                        $stmt = $conn->prepare("SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE date='$date' ORDER BY date DESC, time DESC");
+                        $stmt = $conn->prepare("SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice WHERE inv_date='$date' ORDER BY inv_date DESC, inv_time DESC");
                     }
                     else
                     {
                         if ($date == "")
                         {
                             echo "<h1>Facturas de: $table</h1>";
-                            $stmt = $conn->prepare("SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE table_id='$table' ORDER BY date DESC, time DESC");
+                            $stmt = $conn->prepare("SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice WHERE table_id='$table' ORDER BY inv_date DESC, inv_time DESC");
                         }
                         else
                         {
                             echo "<h1>Facturas de: $table con Fecha: " . $latin[2] . '/' . $latin[1] . '/' . $latin[0] . "</h1>";
-                            $stmt = $conn->prepare("SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE table_id='$table' AND date='$date' ORDER BY date DESC, time DESC");
+                            $stmt = $conn->prepare("SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice WHERE table_id='$table' AND inv_date='$date' ORDER BY inv_date DESC, inv_time DESC");
                         }
                     }
                     $stmt_date = $conn->prepare("SET lc_time_names = 'es_ES'");

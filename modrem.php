@@ -10,7 +10,7 @@ if (isset($_POST["id"]))
 	{
 		$id = $_POST['id'];
 		$product = $_POST['product'];
-		$stmt = $conn->prepare("DELETE FROM foods WHERE id=$id");
+		$stmt = $conn->prepare("DELETE FROM food WHERE id=$id");
 		$stmt->execute();
 		echo "<script>toast(2, 'Producto Quitado:', 'El Producto " . $product . " ha Sido Quitado Correctamente.');</script>";
 	}
@@ -20,7 +20,7 @@ if (isset($_POST["id"]))
 		$price = $_POST['price'];
 		$kind = $_POST['kind'];
 		$id = $_POST['id'];
-        $stmt = $conn->prepare("UPDATE foods SET food='$product', food_price=$price, kind='$kind' WHERE id=$id");
+        $stmt = $conn->prepare("UPDATE food SET name='$product', price=$price, kind=$kind WHERE id=$id");
 		$stmt->execute();
 		echo "<script>toast(0, 'Todo Ha Ido Bien:', 'Producto : " . $product . " Modificado correctamente.');</script>";
 	}
@@ -38,7 +38,7 @@ if (isset($_POST["id"]))
 					<h1>Menú Para Modificar o Eliminar los Productos.</h1>
 					<?php
                     $kind = 
-					$stmt = $conn->prepare('SELECT * FROM foods ORDER BY kind ASC');
+					$stmt = $conn->prepare('SELECT * FROM food ORDER BY kind ASC');
 					$stmt->execute();
 					while($row = $stmt->fetch(PDO::FETCH_OBJ))
 					{
@@ -46,16 +46,16 @@ if (isset($_POST["id"]))
 						<div style="border:4px solid blue;">
 						<form action="" method="post">
 						<input type="hidden" name="id" value="' . $row->id . '">
-						<label><input type="text" name="product" value="' . $row->food . '" style="width: 480px;"> Producto</label>
+						<label><input type="text" name="product" value="' . $row->name . '" style="width: 480px;"> Producto</label>
 						<br><br>
-						<label><input type="number" step=".05" name="price" value="' . $row->food_price . '"> Precio</label>
+						<label><input type="number" step=".05" name="price" value="' . $row->price . '"> Precio</label>
 						<br><br>
 						<input type="hidden" name="kind" value="' . $row->kind . '">
 						<input type="submit" value="Modificar" style="width:160px; height:60px;" class="btn btn-success">
 						</form>
 						<form action="" method="post">
 						<input type="hidden" name="id" value="' . $row->id . '">
-						<input type="hidden" name="product" value="' . $row->food . '">
+						<input type="hidden" name="product" value="' . $row->name . '">
 						<br><br>
 						<input type="submit" value="Borrar Producto." style="width:160px; height:60px;" class="btn btn-danger">
 						</form>

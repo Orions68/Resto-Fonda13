@@ -42,7 +42,7 @@ include "includes/header.php";
                             <label><select name="client" required>
                                 <option value=""> Selecciona un Cliente</option>
                                 <?php
-                                $sql = "SELECT id, name from delivery";
+                                $sql = "SELECT id, name from client";
                                 $stmt = $conn->prepare($sql);
                                 $stmt->execute();
                                 if ($stmt->rowCount() > 0)
@@ -64,7 +64,7 @@ include "includes/header.php";
                             <label><select name="client" required>
                                 <option value=""> Selecciona un Cliente</option>
                                 <?php
-                                $sql = "SELECT id, name from delivery";
+                                $sql = "SELECT id, name from client";
                                 $stmt = $conn->prepare($sql);
                                 $stmt->execute();
                                 if ($stmt->rowCount() > 0)
