@@ -25,25 +25,23 @@
     width:fit-content;
     background-color:#fefefe;
     color:black;
-    margin-left:70%;
+    margin-left:53%;
     font-size: 1.3rem;
 }
 
 .left
 {
-	width: 34%;
+	width: 30%;
 }
 
-.right
+.middle, .right
 {
-    text-align: right;
 	width: 6%;
 }
 
-.middle
+.moreright
 {
-    text-align: right;
-	width: 7%;
+    width: 8%;
 }
 
 .last

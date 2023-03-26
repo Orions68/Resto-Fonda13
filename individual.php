@@ -17,7 +17,7 @@ if (isset($_POST["date"]))
     $stmt = $conn->prepare("SET lc_time_names = 'es_ES'");
 	$stmt->execute();
 
-    $sql = "SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE date='$date'";
+    $sql = "SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice WHERE inv_date='$date'";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
@@ -71,8 +71,8 @@ $qtty = "";
         <td>' . $product . '</td>
         <td>' . $price . '</td>
         <td>' . $qtty . '</td>
-        <td>' . $row["time"] . '</td>
-        <td>' . $row["date"] . '</td>
+        <td>' . $row["inv_time"] . '</td>
+        <td>' . $row["inv_date"] . '</td>
         <td>' . number_format((float)$row["total"] * 100 / 121, 2, ',', '.') . ' $</td>
         <td>21%</td>
         <td>' . number_format((float)$row["total"] * 100 / 121 * .21, 2, ',', '.') . ' $</td>

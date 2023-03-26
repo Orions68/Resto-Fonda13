@@ -3,24 +3,24 @@ if (json_decode(file_get_contents('php://input'), true))
 {
 	$_POST = json_decode(file_get_contents('php://input'), true);
 }
-if (isset($_POST['id']) || isset($_GET['id']))
+if (isset($_REQUEST['id']))
 {
 	include "includes/conn.php";
 
 	$id = $_REQUEST["id"];
     $id = (int)$id;
-	$products = array();
+	$product = array();
     $stmt = $conn->prepare("SELECT * FROM food WHERE kind=$id");
 	$stmt->execute();
 	while($row = $stmt->fetch(PDO::FETCH_OBJ))
 	{
 		$temp = array();
         $temp['id'] = $row->id;
-        $temp['products'] = $row->name;
-        $temp['price_products'] = $row->price;
-		array_push($products, $temp);
+        $temp['food'] = $row->name;
+        $temp['price'] = $row->price;
+		array_push($product, $temp);
 	}
-	echo json_encode($products);
+	echo json_encode($product);
 	exit();
 }
 $title = "Enviando Datos a Android";

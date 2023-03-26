@@ -5,7 +5,14 @@ if (json_decode(file_get_contents('php://input'), true))
 }
 if (isset($_POST["id"]))
 {
-    $wait = $_POST["wait"];
+    if (isset($_POST["wait"]))
+    {
+        $wait = $_POST["wait"];
+    }
+    else
+    {
+        $wait = "0";
+    }
 	$id = $_POST["id"];
 	$product = $_POST["product"];
 	$invoice = $_POST["invoice"];

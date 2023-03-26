@@ -28,7 +28,7 @@ if (isset($_POST["date"]))
             $i++;
         }
         $i = 0;
-        $sql = "SELECT * FROM sold INNER JOIN invoice WHERE invoice.id=sold.invoice_id AND invoice.inv_date='$date';";
+        $sql = "SELECT * FROM sold INNER JOIN invoice WHERE invoice.id=sold.invoice_id AND invoice.inv_date='$date' ORDER BY invoice.inv_time DESC;";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         while ($row = $stmt->fetch(PDO::FETCH_OBJ))
@@ -83,47 +83,47 @@ if (isset($_POST["date"]))
                 for ($j = 0; $j < $i; $j++)
                 {
                     echo '<div id="printable' . $j . '">
-                        <h3>La Peluquería de Javier Borneo - C.U.I.T 20-22506157-3</h3>
+                        <h3>Restaurante Fonda 13 - C.U.I.T 20-22506157-3</h3>
                         <h4>Factura  Nº: ' . $id[$j] . ', a ' . $client[$j] . ' Fecha: ' . $date . '</h4>
                         <div class="row">
                         <div style="width: 1px;"></div>
-                            <div class="column left" style="background-color:#ccc;">
+                            <div class="column left" style="background-color:#d0d0d0;">
                             Servicio
                             </div>
-                            <div class="column middle" style="background-color:#ddd;">
+                            <div class="column middle" style="background-color:#d8d8d8;">
                             Precio
                             </div>
-                            <div class="column middle" style="background-color:#ddd;">
+                            <div class="column middle" style="background-color:#dfdfdf;">
                             Cantidad
                             </div>
-                            <div class="column middle" style="background-color:#ddd;">
+                            <div class="column middle" style="background-color:#e0e0e0;">
                             Parcial
                             </div>
-                            <div class="column middle" style="background-color:#ddd;">
+                            <div class="column middle" style="background-color:#e8e8e8;">
                             Base Imponible
                             </div>
-                            <div class="column right" style="background-color:#dde">
+                            <div class="column right" style="background-color:#efefef">
                             I.V.A.
                             </div>
-                            <div class="column moreright" style="background-color:#eee;">
+                            <div class="column moreright" style="background-color:#f8f8f8;">
                             Total + I.V.A.
                             </div>
                         </div>
                         <div class="row">
                         <div style="width: 1px;"></div>
-                            <div class="column left" style="background-color:#ccc;">' . $servi[$j] . '
+                            <div class="column left" style="background-color:#d0d0d0;">' . $servi[$j] . '
                             </div>
-                            <div class="column middle" style="background-color:#ddd;">' . $pric[$j] . '
+                            <div class="column middle" style="background-color:#d8d8d8;">' . $pric[$j] . '
                             </div>
-                            <div class="column middle" style="background-color:#ddd;">' . $qtti[$j] . '
+                            <div class="column middle" style="background-color:#dfdfdf;">' . $qtti[$j] . '
                             </div>
-                            <div class="column middle" style="background-color:#ddd;">' . $partial[$j] . '
+                            <div class="column middle" style="background-color:#e0e0e0;">' . $partial[$j] . '
                             </div>
-                            <div class="column middle" style="background-color:#ddd;">' . number_format((float)$total[$j] * 100 / 121, 2, ',', '.') . ' $
+                            <div class="column middle" style="background-color:#e8e8e8;">' . number_format((float)$total[$j] * 100 / 121, 2, ',', '.') . ' $
                             </div>
-                            <div class="column right" style="background-color:#dde;">' . number_format((float)$total[$j] * .21, 2, ',', '.') . ' $
+                            <div class="column right" style="background-color:#efefef;">' . number_format((float)$total[$j] * .21, 2, ',', '.') . ' $
                             </div>
-                            <div class="column moreright" style="background-color:#eee;">' . number_format((float)$total[$j], 2, ',', '.') . ' $
+                            <div class="column moreright" style="background-color:#f8f8f8;">' . number_format((float)$total[$j], 2, ',', '.') . ' $
                             </div>
                         </div>
                         <div class="row">
