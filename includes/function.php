@@ -47,7 +47,7 @@ function result($conn, $row, $where, $how) // Función result recibe la conexió
             $product .= $product_name;
             $price .= number_format((float)$product_price, 2, ',', '.') . " $";
             $qtty .= $qtties[$i];
-            $partial .= $partials[$i];
+            $partial .= number_format((float)$partials[$i], 2, ',', '.') . " $";
         }
         else
         {
@@ -56,14 +56,14 @@ function result($conn, $row, $where, $how) // Función result recibe la conexió
                 $product .= $product_name . "<br>"; // Saltos de línea HTML.
                 $price .= number_format((float)$product_price, 2, ',', '.') . " $<br>";
                 $qtty .= $qtties[$i] . "<br>";
-                $partial .= $partials[$i] . "<br>";
+                $partial .= number_format((float)$partials[$i], 2, ',', '.') . " $<br>";
             }
             else // Si no es 1 se llamo desde la plantilla de Excel.
             {
                 $product .= $product_name . "\n"; // Saltos de línea \n.
                 $price .= number_format((float)$product_price, 2, ',', '.') . " $\n";
                 $qtty .= $qtties[$i] . "\n";
-                $partial .= $partials[$i] . "\n";
+                $partial .= number_format((float)$partials[$i], 2, ',', '.') . " $\n";
             }
         }
     }

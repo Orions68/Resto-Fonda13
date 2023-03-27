@@ -63,8 +63,8 @@ include "includes/header.php";
             <div class="col-md-10">
                 <div id="view1">
                     <?php
-                    $stmt = $conn->prepare('INSERT INTO invoice VALUES(:id, :client_id, :wait_id, :table_id, :total, :date, :time);');
-                    $stmt->execute(array(':id' => null, ':client_id' => $client, ':wait_id' => $wait, ':table_id' => $table_id, ':total' => $total, ':date' => $date, ':time' => $time));
+                    $stmt = $conn->prepare('INSERT INTO invoice VALUES(:id, :client_id, :wait_id, :table_id, :total, :inv_date, :inv_time);');
+                    $stmt->execute(array(':id' => null, ':client_id' => $client, ':wait_id' => $wait, ':table_id' => $table_id, ':total' => $total, ':inv_date' => $date, ':inv_time' => $time));
                     $sql = "SELECT id FROM invoice ORDER BY id DESC LIMIT 1;";
                     $stmt = $conn->prepare($sql);
                     $stmt->execute();

@@ -14,16 +14,16 @@ include 'vendor/autoload.php';
 	switch($date)
 	{
 		case 1:
-			$query = "SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE date BETWEEN CAST('" . $year . "-01-01' AS DATE) AND CAST('" . $year . "-03-31' AS DATE) ORDER BY id ASC"; // Para el 1º Trimestre desde el 1/1 al 31/3
+			$query = "SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice WHERE inv_date BETWEEN CAST('" . $year . "-01-01' AS DATE) AND CAST('" . $year . "-03-31' AS DATE) ORDER BY id ASC"; // Para el 1º Trimestre desde el 1/1 al 31/3
 		break;
 		case 2:
-			$query = "SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE date BETWEEN CAST('" . $year . "-04-01' AS DATE) AND CAST('" . $year . "-06-30' AS DATE) ORDER BY id ASC"; // Para el 2º Trimestre desde el 1/4 al 30/6
+			$query = "SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice WHERE inv_date BETWEEN CAST('" . $year . "-04-01' AS DATE) AND CAST('" . $year . "-06-30' AS DATE) ORDER BY id ASC"; // Para el 2º Trimestre desde el 1/4 al 30/6
 		break;
 		case 3:
-			$query = "SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE date BETWEEN CAST('" . $year . "-07-01' AS DATE) AND CAST('" . $year . "-09-30' AS DATE) ORDER BY id ASC"; // Para el 3º Trimestre desde el 1/7 al 30/9
+			$query = "SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice WHERE inv_date BETWEEN CAST('" . $year . "-07-01' AS DATE) AND CAST('" . $year . "-09-30' AS DATE) ORDER BY id ASC"; // Para el 3º Trimestre desde el 1/7 al 30/9
 		break;
 		default:
-			$query = "SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE date BETWEEN CAST('" . $year . "-10-01' AS DATE) AND CAST('" . $year . "-12-31' AS DATE) ORDER BY id ASC"; // Para el 4º Trimestre desde el 1/10 al 31/12
+			$query = "SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice WHERE inv_date BETWEEN CAST('" . $year . "-10-01' AS DATE) AND CAST('" . $year . "-12-31' AS DATE) ORDER BY id ASC"; // Para el 4º Trimestre desde el 1/10 al 31/12
 		break;
 	}
 	
@@ -73,13 +73,13 @@ if(isset($_POST["export"]))
         $active_sheet->getStyle('E' . $count)->getAlignment()->setHorizontal("right"); // Alineación del texto con la cadena 'right', Alinea a la Derecha.
 		$active_sheet->setCellValue('F' . $count, $qtty);
 		$active_sheet->getStyle('F' . $count)->getAlignment()->setHorizontal("right"); // Alineación del texto con la cadena 'right', Alinea a la Derecha.
-		$active_sheet->setCellValue('G' . $count, $row["date"]);
+		$active_sheet->setCellValue('G' . $count, $row["inv_date"]);
         $active_sheet->getStyle('G' . $count)->getAlignment()->setHorizontal("right"); // Alineación del texto con la cadena 'right', Alinea a la Derecha.
-		$active_sheet->setCellValue('H' . $count, $row["time"]);
+		$active_sheet->setCellValue('H' . $count, $row["inv_time"]);
         $active_sheet->getStyle('H' . $count)->getAlignment()->setHorizontal("right"); // Alineación del texto con la cadena 'right', Alinea a la Derecha.
 		$active_sheet->setCellValue('I' . $count, $row["total"] * 100 / 121);
         $active_sheet->getStyle('I' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
-		$active_sheet->setCellValue('J' . $count, "21 %");
+		$active_sheet->setCellValue('J' . $count, "10 %");
         $active_sheet->getStyle('J' . $count)->getAlignment()->setHorizontal("center");
         $active_sheet->setCellValue('K' . $count, $row["total"] * 100 / 121 * .21);
         $active_sheet->getStyle('K' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
@@ -208,8 +208,8 @@ include "includes/header.php";
 							<td>' . $product . '</td>
 							<td>' . $price . '</td>
 							<td>' . $qtty . '</td>
-							<td>' . $row["time"] . '</td>
-							<td>' . $row["date"] . '</td>
+							<td>' . $row["inv_time"] . '</td>
+							<td>' . $row["inv_date"] . '</td>
 							<td>' . number_format((float)$row["total"] * 100 / 121, 2, ',', '.') . ' $</td>
 							<td>21 %</td>
                             <td>' . number_format((float)$row["total"] * 100 / 121 * .21, 2, ',', '.') . ' $</td>

@@ -88,24 +88,24 @@ if (isset($_POST["date"]))
                         <div class="row">
                         <div style="width: 1px;"></div>
                             <div class="column left" style="background-color:#d0d0d0;">
-                            Servicio
+                            Artículo
                             </div>
-                            <div class="column middle" style="background-color:#d8d8d8;">
+                            <div class="column right" style="background-color:#d8d8d8;">
                             Precio
                             </div>
                             <div class="column middle" style="background-color:#dfdfdf;">
                             Cantidad
                             </div>
-                            <div class="column middle" style="background-color:#e0e0e0;">
+                            <div class="column right" style="background-color:#e0e0e0;">
                             Parcial
                             </div>
                             <div class="column middle" style="background-color:#e8e8e8;">
                             Base Imponible
                             </div>
-                            <div class="column right" style="background-color:#efefef">
-                            I.V.A.
+                            <div class="column middle" style="background-color:#efefef">
+                            Pago de I.V.A. 10%
                             </div>
-                            <div class="column moreright" style="background-color:#f8f8f8;">
+                            <div class="column middle" style="background-color:#f8f8f8;">
                             Total + I.V.A.
                             </div>
                         </div>
@@ -113,17 +113,17 @@ if (isset($_POST["date"]))
                         <div style="width: 1px;"></div>
                             <div class="column left" style="background-color:#d0d0d0;">' . $servi[$j] . '
                             </div>
-                            <div class="column middle" style="background-color:#d8d8d8;">' . $pric[$j] . '
+                            <div class="column right" style="background-color:#d8d8d8;">' . $pric[$j] . '
                             </div>
                             <div class="column middle" style="background-color:#dfdfdf;">' . $qtti[$j] . '
                             </div>
-                            <div class="column middle" style="background-color:#e0e0e0;">' . $partial[$j] . '
+                            <div class="column right" style="background-color:#e0e0e0;">' . $partial[$j] . '
                             </div>
-                            <div class="column middle" style="background-color:#e8e8e8;">' . number_format((float)$total[$j] * 100 / 121, 2, ',', '.') . ' $
+                            <div class="column middle" style="background-color:#e8e8e8;">' . number_format((float)$total[$j] * 100 / 110, 2, ',', '.') . ' $
                             </div>
-                            <div class="column right" style="background-color:#efefef;">' . number_format((float)$total[$j] * .21, 2, ',', '.') . ' $
+                            <div class="column middle" style="background-color:#efefef;">' . number_format((float)$total[$j] * .1, 2, ',', '.') . ' $
                             </div>
-                            <div class="column moreright" style="background-color:#f8f8f8;">' . number_format((float)$total[$j], 2, ',', '.') . ' $
+                            <div class="column middle" style="background-color:#f8f8f8;">' . number_format((float)$total[$j], 2, ',', '.') . ' $
                             </div>
                         </div>
                         <div class="row">

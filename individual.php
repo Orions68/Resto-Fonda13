@@ -44,8 +44,7 @@ if (isset($_POST["date"]))
                     <th>Hora</th>
                     <th>Día</th>
                     <th>Base Imponible</th>
-                    <th>I.V.A.</th>
-                    <th>Pago de I.V.A.</th>
+                    <th>Pago de I.V.A. 10%</th>
                     <th>Total + I.V.A.</th>
                     <th style="color: red;">BORRAR</th>
                     </tr>
@@ -73,9 +72,8 @@ $qtty = "";
         <td>' . $qtty . '</td>
         <td>' . $row["inv_time"] . '</td>
         <td>' . $row["inv_date"] . '</td>
-        <td>' . number_format((float)$row["total"] * 100 / 121, 2, ',', '.') . ' $</td>
-        <td>21%</td>
-        <td>' . number_format((float)$row["total"] * 100 / 121 * .21, 2, ',', '.') . ' $</td>
+        <td>' . number_format((float)$row["total"] * 100 / 110, 2, ',', '.') . ' $</td>
+        <td>' . number_format((float)$row["total"] * 100 / 110 * .1, 2, ',', '.') . ' $</td>
         <td>' . number_format((float)$row["total"], 2, ',', '.') . ' $</td>
         <td><form action="delinvoice.php" method="post">
             <input type="hidden" name="id" value="' . $row["id"] . '">
@@ -88,14 +86,14 @@ $qtty = "";
 		$qtty = "";
 	}
     ?>
-                    </table>
-                    <br><br><br>
-	                        <button class="btn btn-danger" style="width:160px; height:80px;" onclick="window.close()">Cierra Esta Ventana</button>
-                        </div>
-                    </div>
-                <div class="col-md-1" style="width:3%;"></div>
+                </table>
+                <br><br><br>
+                    <button class="btn btn-danger" style="width:160px; height:80px;" onclick="window.close()">Cierra Esta Ventana</button>
+                </div>
             </div>
-        </section>
+        <div class="col-md-1" style="width:3%;"></div>
+    </div>
+</section>
 <?php
 }
 include "includes/footer.html";

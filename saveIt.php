@@ -14,7 +14,7 @@ if (isset($_REQUEST["id"]))
     $stmt = $conn->prepare("SET lc_time_names = 'es_ES'");
 	$stmt->execute();
 
-    $sql = ("SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice WHERE id=$id");
+    $sql = ("SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice WHERE id=$id");
 	
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
@@ -42,8 +42,8 @@ if (isset($_REQUEST["id"]))
     $table = $row->table_id;
     $table_name = getTable($conn, $table);
     $total = $row->total;
-    $mydate = $row->date;
-    $time = $row->time;
+    $mydate = $row->inv_date;
+    $time = $row->inv_time;
 
     $active_sheet->setCellValue('A2', $id);
     $active_sheet->getStyle('A2')->getAlignment()->setHorizontal("left");
@@ -61,7 +61,7 @@ if (isset($_REQUEST["id"]))
     $active_sheet->getStyle('H2')->getAlignment()->setHorizontal("right");
     $active_sheet->setCellValue('I2', $total * 100 / 121);
     $active_sheet->getStyle('I2')->getNumberFormat()->setFormatCode('#,##0.00 $');
-    $active_sheet->setCellValue('J2', "21%");
+    $active_sheet->setCellValue('J2', "10%");
     $active_sheet->getStyle('J2')->getAlignment()->setHorizontal("center");
     $active_sheet->setCellValue('K2', $total * 100 / 121 * .21);
 	$active_sheet->getStyle('K2')->getNumberFormat()->setFormatCode('#,##0.00 $');

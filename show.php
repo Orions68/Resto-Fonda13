@@ -9,7 +9,7 @@ include "includes/header.php";
             <div class="col-md-10">
                 <div id="view1">
 					<?php
-					$stmt = $conn->prepare('SELECT * FROM invoice ORDER BY date DESC, time DESC');
+					$stmt = $conn->prepare('SELECT * FROM invoice ORDER BY inv_date DESC, inv_time DESC');
 					$stmt->execute();
 					while($row = $stmt->fetch(PDO::FETCH_OBJ))
 					{

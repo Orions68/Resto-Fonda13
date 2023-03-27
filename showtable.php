@@ -44,13 +44,12 @@ include "includes/header.php";
                             $id = $row->id;
                             $total = $row->total;
                             $client = $row->client_id;
-                            // $partial = explode(",", $row->partial);
                             $wait = $row->wait_id;
                             result($conn, $row, 1, 1); // Llama a la función result, le pasa la conexión y el resultado de la base de datos.
                             echo '<div id="printable' . $j . '">
                                 <h3><br>Fonda 13 - A25000000-2 Calle Santa María de Oro 47, 7600 Mar del Plata</h3>
                                 <br><h2>Factura Nº ' . $id . ' Mesa: ' . $table . ' Atendida por: ' . $wait . '</h2>
-                                <h2>Fecha : ' . $row->date . ' - ' . $row->time . '</h2>
+                                <h2>Fecha : ' . $row->inv_date . ' - ' . $row->inv_time . '</h2>
                                 <div class="row">
                                     <div style="width: 1px;"></div>
                                     <div class="column last" style="background-color:#d0d0d0;">

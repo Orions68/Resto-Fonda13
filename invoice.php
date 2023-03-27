@@ -4,7 +4,7 @@ include "includes/function.php";
 $title = "Última Factura";
 include "includes/header.php";
 
-$sql = "SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice ORDER BY id DESC limit 1";
+$sql = "SELECT *, DATE_FORMAT(inv_date,'%d %M %Y') as date FROM invoice ORDER BY id DESC limit 1";
 $stmt_date = $conn->prepare("SET lc_time_names = 'es_ES'");
 $stmt_date->execute();
 $stmt = $conn->prepare($sql);
@@ -19,8 +19,8 @@ $price = "";
 $qtty = "";
 $partial = "";
 $total = $row->total;
-$date = $row->date;
-$time = $row->time;
+$date = $row->inv_date;
+$time = $row->inv_time;
 ?>
 <section class="container-fluid pt-3">
 <div id="pc"></div>
@@ -35,7 +35,7 @@ $time = $row->time;
                         <h2>Factura de la Mesa: ' . $table . ' Fecha: ' . $date . '</h2>
 						<div class="row">
                             <div style="width: 1px;"></div>
-                            <div class="column last" style="background-color:#d0d0d0;">
+                            <div class="column middle" style="background-color:#d0d0d0;">
                             <h4>Cliente</h4>
                             </div>
                             <div class="column left" style="background-color:#d8d8d8;">
@@ -50,14 +50,14 @@ $time = $row->time;
                             <div class="column right" style="background-color:#e8e8e8;">
                             <h4>Parcial</h4>
                             </div>
-                            <div class="column right" style="background-color:#eeeeee;">
+                            <div class="column middle" style="background-color:#eeeeee;">
+                            <h4>Base Imponible</h4>
+                            </div>
+                            <div class="column middle" style="background-color:#f0f0f0;">
+                            <h4>Pago de I.V.A. 10%</h4>
+                            </div>
+                            <div class="column middle" style="background-color:#f8f8f8;">
                             <h4>Total</h4>
-                            </div>
-                            <div class="column right" style="background-color:#f0f0f0; text-align: center;">
-                            <h4>I.V.A.</h4>
-                            </div>
-                            <div class="column last" style="background-color:#f8f8f8;">
-                            <h4>Pago de I.V.A.</h4>
                             </div>
 						</div>';
 
@@ -65,7 +65,7 @@ $time = $row->time;
 
 					echo '<div class="row">
                             <div style="width: 1px;"></div>
-                            <div class="column last" style="background-color:#d0d0d0;">
+                            <div class="column middle" style="background-color:#d0d0d0;">
                             <h5>' . $client . '</h5>
                             </div>
                             <div class="column left" style="background-color:#d8d8d8;">
@@ -80,14 +80,14 @@ $time = $row->time;
                             <div class="column right" style="background-color:#e8e8e8;">
                             <h5>' . $partial . '</h5>
                             </div>
-                            <div class="column right" style="background-color:#eeeeee;">
+                            <div class="column middle" style="background-color:#eeeeee;">
+                            <h5>' . number_format((float)$total * 100 / 110, 2, ",", ".") . ' $</h5>
+                            </div>
+                            <div class="column middle" style="background-color:#f0f0f0; text-align: center;">
+                            <h5>' . number_format((float)$total * 100 / 110  * .1, 2, ",", ".") . ' $</h5>
+                            </div>
+                            <div class="column middle" style="background-color:#f8f8f8;">
                             <h5>' . number_format((float)$total, 2, ",", ".") . ' $</h5>
-                            </div>
-                            <div class="column right" style="background-color:#f0f0f0; text-align: center;">
-                            <h5>21 %</h5>
-                            </div>
-                            <div class="column last" style="background-color:#f8f8f8;">
-                            <h5>' . number_format((float)$total * 100 / 121  * .21, 2, ",", ".") . ' $</h5>
                             </div>
                         </div>
                     <div class="row">
@@ -100,7 +100,10 @@ $time = $row->time;
                     <div class="col-md-4">
                     <button onclick="printIt(-1)" style="width:160px; height:80px;" class="btn btn-primary">Imprimir Ticket</button>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
+                        <button onclick="pdfDown(0)" class="btn btn-secondary btn-lg">Descarga la Factura en PDF</button>
+                    </div>
+                    <div class="col-md-3">
                     <button onclick="window.open(\'saveIt.php?id=' . $id . '\', \'_blank\')" style="width:160px; height:80px;" class="btn btn-info">Guardar Factura en Exel</button>
                     <script>capture(0);</script>
                     </div>
