@@ -51,10 +51,8 @@ if(isset($_POST["export"]))
 	$active_sheet->setCellValue('G1', 'Día');
 	$active_sheet->setCellValue('H1', 'Hora');
 	$active_sheet->setCellValue('I1', 'Base Imponible');
-	$active_sheet->setCellValue('J1', 'I.V.A.');
-    $active_sheet->getStyle('J1')->getAlignment()->setHorizontal("center");
-    $active_sheet->setCellValue('K1', 'Pago de I.V.A.');
-	$active_sheet->setCellValue('L1', 'Total + I.V.A.');
+    $active_sheet->setCellValue('J1', 'Pago de I.V.A. 10%');
+	$active_sheet->setCellValue('K1', 'Total + I.V.A.');
 
 	$count = 2;
 	$total = 0;
@@ -77,14 +75,12 @@ if(isset($_POST["export"]))
         $active_sheet->getStyle('G' . $count)->getAlignment()->setHorizontal("right"); // Alineación del texto con la cadena 'right', Alinea a la Derecha.
 		$active_sheet->setCellValue('H' . $count, $row["inv_time"]);
         $active_sheet->getStyle('H' . $count)->getAlignment()->setHorizontal("right"); // Alineación del texto con la cadena 'right', Alinea a la Derecha.
-		$active_sheet->setCellValue('I' . $count, $row["total"] * 100 / 121);
+		$active_sheet->setCellValue('I' . $count, $row["total"] * 100 / 110);
         $active_sheet->getStyle('I' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
-		$active_sheet->setCellValue('J' . $count, "10 %");
-        $active_sheet->getStyle('J' . $count)->getAlignment()->setHorizontal("center");
-        $active_sheet->setCellValue('K' . $count, $row["total"] * 100 / 121 * .21);
-        $active_sheet->getStyle('K' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
-		$active_sheet->setCellValue('L' . $count, $row["total"]);
-		$active_sheet->getStyle('L' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
+        $active_sheet->setCellValue('J' . $count, $row["total"] * 100 / 110 * .1);
+        $active_sheet->getStyle('J' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
+		$active_sheet->setCellValue('K' . $count, $row["total"]);
+		$active_sheet->getStyle('K' . $count)->getNumberFormat()->setFormatCode('#,##0.00 $');
 
 		$count++;
 		$product = "";
@@ -92,9 +88,9 @@ if(isset($_POST["export"]))
 		$qtty = "";
 	}
 
-	$active_sheet->setCellValue('K' . ($count + 2), "Total:");
-	$active_sheet->setCellValue('L' . ($count + 2), "=SUM(L2:L" . ($count - 1) . ")");
-	$active_sheet->getStyle('L' . ($count + 2))->getNumberFormat()->setFormatCode('#,##0.00 $');
+	$active_sheet->setCellValue('J' . ($count + 2), "Total:");
+	$active_sheet->setCellValue('K' . ($count + 2), "=SUM(K2:K" . ($count - 1) . ")");
+	$active_sheet->getStyle('K' . ($count + 2))->getNumberFormat()->setFormatCode('#,##0.00 $');
 	$active_sheet->setCellValue('A' . ($count + 4), "XXXXX - N.I.F. 20-42000000-3");
 
 	for ($i = 1; $i < $count; $i++)
@@ -115,7 +111,6 @@ if(isset($_POST["export"]))
             $active_sheet->getColumnDimension(chr(64 + $i + 8))->setWidth(15);
             $active_sheet->getColumnDimension(chr(64 + $i + 9))->setWidth(15);
             $active_sheet->getColumnDimension(chr(64 + $i + 10))->setWidth(15);
-            $active_sheet->getColumnDimension(chr(64 + $i + 11))->setWidth(15);
         }
 
         if ($i == $count - 1)
@@ -190,8 +185,7 @@ include "includes/header.php";
 							<th>Hora</th>
 							<th>Día</th>
 							<th>Base Imponible</th>
-							<th>I.V.A.</th>
-                            <th>Pago de I.V.A.</th>
+                            <th>Pago de I.V.A. 10%</th>
 							<th>Total + I.V.A.</th>
 							</tr>
 						<?php
@@ -210,9 +204,8 @@ include "includes/header.php";
 							<td>' . $qtty . '</td>
 							<td>' . $row["inv_time"] . '</td>
 							<td>' . $row["inv_date"] . '</td>
-							<td>' . number_format((float)$row["total"] * 100 / 121, 2, ',', '.') . ' $</td>
-							<td>21 %</td>
-                            <td>' . number_format((float)$row["total"] * 100 / 121 * .21, 2, ',', '.') . ' $</td>
+							<td>' . number_format((float)$row["total"] * 100 / 110, 2, ',', '.') . ' $</td>
+                            <td>' . number_format((float)$row["total"] * 100 / 110 * .1, 2, ',', '.') . ' $</td>
 							<td>' . number_format((float)$row["total"], 2, ',', '.') . ' $</td>
 							</tr>';
                             $table_name = "";

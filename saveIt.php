@@ -34,7 +34,7 @@ if (isset($_REQUEST["id"]))
 	$active_sheet->setCellValue('G1', 'Día');
     $active_sheet->setCellValue('H1', 'Hora');
     $active_sheet->setCellValue('I1', 'Base Imponible');
-    $active_sheet->setCellValue('J1', 'I.V.A.');
+    $active_sheet->setCellValue('J1', 'Pago de I.V.A. 10%');
     $active_sheet->getStyle('J1')->getAlignment()->setHorizontal("center");
 	$active_sheet->setCellValue('K1', 'Total + I.V.A.');
 
@@ -59,11 +59,12 @@ if (isset($_REQUEST["id"]))
     $active_sheet->getStyle('G2')->getAlignment()->setHorizontal("right");
     $active_sheet->setCellValue('H2', $time);
     $active_sheet->getStyle('H2')->getAlignment()->setHorizontal("right");
-    $active_sheet->setCellValue('I2', $total * 100 / 121);
+    $active_sheet->setCellValue('I2', $total * 100 / 110);
     $active_sheet->getStyle('I2')->getNumberFormat()->setFormatCode('#,##0.00 $');
-    $active_sheet->setCellValue('J2', "10%");
+    $active_sheet->setCellValue('J2', $total * 100 / 110 * .1);
     $active_sheet->getStyle('J2')->getAlignment()->setHorizontal("center");
-    $active_sheet->setCellValue('K2', $total * 100 / 121 * .21);
+    $active_sheet->getStyle('J2')->getNumberFormat()->setFormatCode('#,##0.00 $');
+    $active_sheet->setCellValue('K2', $total);
 	$active_sheet->getStyle('K2')->getNumberFormat()->setFormatCode('#,##0.00 $');
 	$active_sheet->setCellValue('J4', "Total:");
 	$active_sheet->setCellValue('K4', $total);
@@ -86,7 +87,7 @@ if (isset($_REQUEST["id"]))
             $active_sheet->getColumnDimension(chr(64 + $i + 6))->setWidth(15);
             $active_sheet->getColumnDimension(chr(64 + $i + 7))->setWidth(15);
             $active_sheet->getColumnDimension(chr(64 + $i + 8))->setWidth(15);
-            $active_sheet->getColumnDimension(chr(64 + $i + 9))->setWidth(15);
+            $active_sheet->getColumnDimension(chr(64 + $i + 9))->setWidth(20);
             $active_sheet->getColumnDimension(chr(64 + $i + 10))->setWidth(15);
         }
     }
