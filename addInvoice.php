@@ -8,6 +8,7 @@ if (isset($_POST["table"]))
     {
         unlink($table . ".txt");
     }
+    $table_id = getTableId($conn, $table);
     $client = $_POST["client"];
     if ($client == "")
     {
@@ -38,6 +39,18 @@ if (isset($_POST["table"]))
         $j++;
     }
 }
+
+function getTableId($conn, $table)
+{
+    $sql = "SELECT id FROM mesa WHERE name='$table';";
+    echo "<h3>$table</h3>";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_OBJ);
+    $id = $row->id;
+    return $id;
+}
+
 include "includes/modal-invoice.html";
 $title = "Guardando Factura";
 include "includes/header.php";
@@ -51,7 +64,7 @@ include "includes/header.php";
                 <div id="view1">
                     <?php
                     $stmt = $conn->prepare('INSERT INTO invoice VALUES(:id, :client_id, :wait_id, :table_id, :total, :date, :time);');
-                    $stmt->execute(array(':id' => null, ':client_id' => $client, ':wait_id' => $wait, ':table_id' => $table, ':total' => $total, ':date' => $date, ':time' => $time));
+                    $stmt->execute(array(':id' => null, ':client_id' => $client, ':wait_id' => $wait, ':table_id' => $table_id, ':total' => $total, ':date' => $date, ':time' => $time));
                     $sql = "SELECT id FROM invoice ORDER BY id DESC LIMIT 1;";
                     $stmt = $conn->prepare($sql);
                     $stmt->execute();

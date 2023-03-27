@@ -1,8 +1,8 @@
 <?php
 include "includes/conn.php";
 
-$table = $_POST["table"];
-$table_name = getTable($conn, $_POST["table"]);
+$table = $_REQUEST["table"];
+
 if (isset($_POST['invoice']))
 {
     $wait = $_POST["wait"];
@@ -43,10 +43,10 @@ if (!isset($_POST["wait"]))
 {
     $wait = "";
 }
-$title = "Pedido de la Mesa: " . $table_name;
+$title = "Pedido de la Mesa: " . $table;
 include "includes/header.php";
 ?>
-<h2>Facturando : <?php echo $table_name ?></h2>
+<h2>Facturando : <?php echo $table; ?></h2>
 <br><br>
 <section class="container-fluid pt-3">
 <div id="view1">
@@ -232,13 +232,4 @@ echo "<button style='float:right; width:128px; height:64px;' onclick='deleting("
 ?>
 <?php
 include "includes/footer.html";
-
-function getTable($conn, $table)
-{
-    $sql = "SELECT mesa FROM mesa WHERE id=$table;";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_OBJ);
-    return $row->mesa;
-}
 ?>

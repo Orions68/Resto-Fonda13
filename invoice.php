@@ -4,7 +4,7 @@ include "includes/function.php";
 $title = "Última Factura";
 include "includes/header.php";
 
-$sql = "SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice ORDER BY id desc limit 1";
+$sql = "SELECT *, DATE_FORMAT(date,'%d %M %Y') as date FROM invoice ORDER BY id DESC limit 1";
 $stmt_date = $conn->prepare("SET lc_time_names = 'es_ES'");
 $stmt_date->execute();
 $stmt = $conn->prepare($sql);

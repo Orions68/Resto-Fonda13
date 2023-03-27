@@ -89,7 +89,7 @@ function getWait($conn, $wait)
 {
     if ($wait != null)
     {
-        $sql = "SELECT name FORM wait WHERE id=$wait;";
+        $sql = "SELECT name FROM wait WHERE id=$wait;";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_OBJ);
@@ -103,10 +103,10 @@ function getWait($conn, $wait)
 
 function getTable($conn, $table)
 {
-    $sql = "SELECT mesa FROM mesa WHERE id=$table;";
+    $sql = "SELECT name FROM mesa WHERE id=$table;";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_OBJ);
-    return $row->mesa;
+    return $row->name;
 }
 ?>
