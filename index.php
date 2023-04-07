@@ -11,7 +11,7 @@ if (isset($_POST["id"]))
     }
     else
     {
-        $wait = "0";
+        $wait = "";
     }
 	$id = $_POST["id"];
 	$product = $_POST["product"];
@@ -52,7 +52,7 @@ while ($n < count($files))
     $table = explode(",", $array[$n][0]);
 	fclose($file);
 	echo '<form name="data' . $n . '" method="post" action="mesa.php?table=' . $table[0] . '" target="' . $table[0] . '">
-    <input type="hidden" name="wait" value="' . $table[1] . '">
+    <input type="hidden" name="wait" value="' . $wait . '">
 	<input type="hidden" name="invoice" value="' . $array[$n][1] . '">
 	</form>
 	<script type="text/javascript">document.forms["data' . $n . '"].submit();</script>';
