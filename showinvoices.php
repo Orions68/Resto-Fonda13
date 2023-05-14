@@ -28,7 +28,7 @@ if (isset($_POST["date"]))
             $i++;
         }
         $i = 0;
-        $sql = "SELECT * FROM sold INNER JOIN invoice WHERE invoice.id=sold.invoice_id AND invoice.inv_date='$date' ORDER BY invoice.inv_time DESC;";
+        $sql = "SELECT * FROM sold INNER JOIN invoice ON sold.invoice_id=invoice.id WHERE invoice.inv_date='$date' ORDER BY invoice.inv_time DESC;";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         while ($row = $stmt->fetch(PDO::FETCH_OBJ))

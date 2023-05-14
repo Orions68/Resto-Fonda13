@@ -23,7 +23,9 @@ if (isset($_POST["client"]))
                     <br>
                     <form action="modifyuser.php" method="post" onsubmit="return verify()">
                     <?php
-                    echo '<label><input type="text" name="client" value="' . $row->name . '" required> Nombre Completo</label><br><br>
+                    echo '<label><input type="text" name="client" value="' . $row->name . '" required> Tu Nombre</label><br><br>
+                    <label><input type="text" name="surname" value="' . $row->surname . '" required> Apellido 1</label><br><br>
+                    <label><input type="text" name="surname2" value="' . $row->surname2 . '"> Apelldio 2</label><br><br>
                     <label><input id="cuit" type="text" name="cuit" value="' . $row->cuit . '"> D.N.I.</label><br><br>
                     <label><input type="text" name="email" value="' . $row->email . '" required> E-mail</label><br><br>
                     <label><input id="pass" type="password" name="pass"> Contraseña</label><br><br>

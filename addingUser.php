@@ -4,6 +4,12 @@ include "includes/modal-dismiss.html";
 $title = "Agregando un Cliente para Delivery/Facturación";
 include "includes/header.php";
 $name = htmlspecialchars($_POST['client']);
+$surname = htmlspecialchars($_POST['surname']);
+$surname2 = htmlspecialchars($_POST['surname2']);
+if ($surname2 == "")
+{
+    $surname2 = NULL;
+}
 $dni = htmlspecialchars($_POST['dni']);
 $pass = htmlspecialchars($_POST['pass']);
 $hash = password_hash($pass, PASSWORD_DEFAULT);
@@ -26,14 +32,14 @@ else
 
 if ($ok)
 {
-    $stmt = $conn->prepare('INSERT INTO client VALUES(:id, :name, :dni, :email, :pass, :phone, :address)');
+    $stmt = $conn->prepare('INSERT INTO client VALUES(:id, :name, :surname, :surname2, :dni, :email, :pass, :phone, :address)');
     if ($dni != "")
     {
-        $stmt->execute(array(':id' => null, ':name' => $name, ':dni' => $dni, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));
+        $stmt->execute(array(':id' => null, ':name' => $name, ':surname' => $surname, ':surname2' => $surname2, ':dni' => $dni, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));
     }
     else
     {
-        $stmt->execute(array(':id' => null, ':name' => $name, ':dni' => null, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));
+        $stmt->execute(array(':id' => null, ':name' => $name, ':surname' => $surname, ':surname2' => $surname2, ':dni' => null, ':email' => $email, ':pass' => $hash, ':phone' => $phone, ':address' => $address));
     }
     echo "<script>toast ('0', 'Cliente : " . $name . " Agregado Correctamente.', 'Se a Agregado el Cliente Para Hacer Pedidos a Domicilio.');</script>";
 }

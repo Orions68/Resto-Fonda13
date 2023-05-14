@@ -17,11 +17,15 @@ include "includes/header.php";
                         <h3>La Contraseña y el C.U.I.T. Pueden Quedar en Blanco</h3>
                         <br>
                         <form action="addingUser.php" method="post" onsubmit="return verify()">
-                        <label><input type="text" name="client" required> Nombre</label>
+                        <label><input type="text" name="client" required> Tu Nombre</label>
+                        <br><br>
+                        <label><input type="text" name="surname" required> Apellido 1</label>
+                        <br><br>
+                        <label><input type="text" name="surname2"> Apellido 2</label>
                         <br><br>
                         <label><input id="dni" type="text" name="dni"> D.N.I.</label>
                         <br><br>
-                        <label><input type="text" name="email" required> E-mail</label>
+                        <label><input type="email" name="email" required> E-mail</label>
                         <br><br>
                         <label><input id="pass" type="password" name="pass"> Contraseña</label>
                         <br><br>
